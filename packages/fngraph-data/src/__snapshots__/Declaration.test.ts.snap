@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Declaration sets a value to declaration 1`] = `
+{
+  "declaration": 2591855994732544,
+}
+`;
+
+exports[`Declaration throws an error if no value is bound to declaration 1`] = `"Declaration value is not defined in the context."`;
+
+exports[`Declaration throws an error if value is already set 1`] = `"The declaration "declaration" value is already set."`;

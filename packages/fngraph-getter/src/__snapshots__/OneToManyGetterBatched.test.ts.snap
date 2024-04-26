@@ -1,0 +1,519 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createOneToManyBatched iterates through getter records 1`] = `
+[
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": 7,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 5,
+    "declaration B": 6,
+    "declaration C": 11,
+  },
+  {
+    "declaration A": 5,
+    "declaration B": 6,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 7,
+    "declaration B": 8,
+    "declaration C": 15,
+  },
+  {
+    "declaration A": 7,
+    "declaration B": 8,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 9,
+    "declaration B": 10,
+    "declaration C": 19,
+  },
+  {
+    "declaration A": 9,
+    "declaration B": 10,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 11,
+    "declaration B": 12,
+    "declaration C": 23,
+  },
+  {
+    "declaration A": 11,
+    "declaration B": 12,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 13,
+    "declaration B": 14,
+    "declaration C": 27,
+  },
+  {
+    "declaration A": 13,
+    "declaration B": 14,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 15,
+    "declaration B": 16,
+    "declaration C": 31,
+  },
+  {
+    "declaration A": 15,
+    "declaration B": 16,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 17,
+    "declaration B": 18,
+    "declaration C": 35,
+  },
+  {
+    "declaration A": 17,
+    "declaration B": 18,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 19,
+    "declaration B": 20,
+    "declaration C": 39,
+  },
+  {
+    "declaration A": 19,
+    "declaration B": 20,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 21,
+    "declaration B": 22,
+    "declaration C": 43,
+  },
+  {
+    "declaration A": 21,
+    "declaration B": 22,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 23,
+    "declaration B": 24,
+    "declaration C": 47,
+  },
+  {
+    "declaration A": 23,
+    "declaration B": 24,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 25,
+    "declaration B": 26,
+    "declaration C": 51,
+  },
+  {
+    "declaration A": 25,
+    "declaration B": 26,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 27,
+    "declaration B": 28,
+    "declaration C": 55,
+  },
+  {
+    "declaration A": 27,
+    "declaration B": 28,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 29,
+    "declaration B": 30,
+    "declaration C": 59,
+  },
+  {
+    "declaration A": 29,
+    "declaration B": 30,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 31,
+    "declaration B": 32,
+    "declaration C": 63,
+  },
+  {
+    "declaration A": 31,
+    "declaration B": 32,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 33,
+    "declaration B": 34,
+    "declaration C": 67,
+  },
+  {
+    "declaration A": 33,
+    "declaration B": 34,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 35,
+    "declaration B": 36,
+    "declaration C": 71,
+  },
+  {
+    "declaration A": 35,
+    "declaration B": 36,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 37,
+    "declaration B": 38,
+    "declaration C": 75,
+  },
+  {
+    "declaration A": 37,
+    "declaration B": 38,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 39,
+    "declaration B": 40,
+    "declaration C": 79,
+  },
+  {
+    "declaration A": 39,
+    "declaration B": 40,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 41,
+    "declaration B": 42,
+    "declaration C": 83,
+  },
+  {
+    "declaration A": 41,
+    "declaration B": 42,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 43,
+    "declaration B": 44,
+    "declaration C": 87,
+  },
+  {
+    "declaration A": 43,
+    "declaration B": 44,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 45,
+    "declaration B": 46,
+    "declaration C": 91,
+  },
+  {
+    "declaration A": 45,
+    "declaration B": 46,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 47,
+    "declaration B": 48,
+    "declaration C": 95,
+  },
+  {
+    "declaration A": 47,
+    "declaration B": 48,
+    "declaration C": -1,
+  },
+  {
+    "declaration A": 49,
+    "declaration B": 50,
+    "declaration C": 99,
+  },
+  {
+    "declaration A": 49,
+    "declaration B": 50,
+    "declaration C": -1,
+  },
+]
+`;
+
+exports[`createOneToManyBatched iterates through getter records 2`] = `
+[
+  7,
+  7,
+  7,
+  4,
+]
+`;
+
+exports[`createOneToManyBatched permutates records with another node 1`] = `
+[
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": 7,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 5,
+    "declaration B": 6,
+    "declaration C": 11,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 5,
+    "declaration B": 6,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 7,
+    "declaration B": 8,
+    "declaration C": 15,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 7,
+    "declaration B": 8,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 9,
+    "declaration B": 10,
+    "declaration C": 19,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 9,
+    "declaration B": 10,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 11,
+    "declaration B": 12,
+    "declaration C": 23,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 11,
+    "declaration B": 12,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 13,
+    "declaration B": 14,
+    "declaration C": 27,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 13,
+    "declaration B": 14,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 15,
+    "declaration B": 16,
+    "declaration C": 31,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 15,
+    "declaration B": 16,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 17,
+    "declaration B": 18,
+    "declaration C": 35,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 17,
+    "declaration B": 18,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 19,
+    "declaration B": 20,
+    "declaration C": 39,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 19,
+    "declaration B": 20,
+    "declaration C": -1,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": 7,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 5,
+    "declaration B": 6,
+    "declaration C": 11,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 5,
+    "declaration B": 6,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 7,
+    "declaration B": 8,
+    "declaration C": 15,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 7,
+    "declaration B": 8,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 9,
+    "declaration B": 10,
+    "declaration C": 19,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 9,
+    "declaration B": 10,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 11,
+    "declaration B": 12,
+    "declaration C": 23,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 11,
+    "declaration B": 12,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 13,
+    "declaration B": 14,
+    "declaration C": 27,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 13,
+    "declaration B": 14,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 15,
+    "declaration B": 16,
+    "declaration C": 31,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 15,
+    "declaration B": 16,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 17,
+    "declaration B": 18,
+    "declaration C": 35,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 17,
+    "declaration B": 18,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 19,
+    "declaration B": 20,
+    "declaration C": 39,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 19,
+    "declaration B": 20,
+    "declaration C": -1,
+    "declaration D": 20,
+  },
+]
+`;
+
+exports[`createOneToManyBatched permutates records with another node 2`] = `
+[
+  3,
+  3,
+  3,
+  1,
+]
+`;

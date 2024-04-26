@@ -1,0 +1,8 @@
+/**
+ * Fetches a resource with GET using the appropriate protocol (http/https).
+ *
+ * @param {string} url The URL of the resource.
+ * @returns {Promise<string>} A promise that resolves with the response data.
+ */
+export function fetchResourceAsync(url: string): Promise<string> {
+}

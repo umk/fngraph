@@ -1,0 +1,591 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`getProgramSchema properly extracts program schema from "testcase1.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "addNumbers",
+      "signature": {
+        "description": "Adds two numeric values.",
+        "parameters": [
+          {
+            "name": "a",
+            "schema": {
+              "description": "The first numeric value.",
+              "type": "number",
+            },
+          },
+          {
+            "name": "b",
+            "schema": {
+              "description": "The second numeric value.",
+              "type": "number",
+            },
+          },
+        ],
+        "required": [
+          "a",
+          "b",
+        ],
+        "result": {
+          "description": "The sum of two numeric values.",
+          "schema": {
+            "description": undefined,
+            "type": "number",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase2.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "convertCurrencyAsync",
+      "signature": {
+        "description": "Fetches exchange rates from an external API and converts amounts from one currency to another.
+Returns a promise that resolves to an array of converted amounts.",
+        "parameters": [
+          {
+            "name": "sourceCurrency",
+            "schema": {
+              "description": "The currency of the input amounts.",
+              "type": "string",
+            },
+          },
+          {
+            "name": "targetCurrency",
+            "schema": {
+              "description": "The currency to convert the amounts to.",
+              "type": "string",
+            },
+          },
+          {
+            "name": "amounts",
+            "schema": {
+              "description": "An array of amounts to be converted.",
+              "items": {
+                "description": undefined,
+                "type": "number",
+              },
+              "type": "array",
+            },
+          },
+        ],
+        "required": [
+          "sourceCurrency",
+          "targetCurrency",
+          "amounts",
+        ],
+        "result": {
+          "description": "A promise that resolves to an array of converted amounts.",
+          "schema": {
+            "description": undefined,
+            "items": {
+              "description": undefined,
+              "type": "number",
+            },
+            "type": "array",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase3.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "fetchResourceAsync",
+      "signature": {
+        "description": "Fetches a resource with GET using the appropriate protocol (http/https).",
+        "parameters": [
+          {
+            "name": "url",
+            "schema": {
+              "description": "The URL of the resource.",
+              "type": "string",
+            },
+          },
+        ],
+        "required": [
+          "url",
+        ],
+        "result": {
+          "description": "A promise that resolves with the response data.",
+          "schema": {
+            "description": undefined,
+            "type": "string",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase4.ts.txt" 1`] = `
+{
+  "functions": [],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase5.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "isEven",
+      "signature": {
+        "description": "Predicate function that checks if a number is even.",
+        "parameters": [
+          {
+            "name": "num",
+            "schema": {
+              "description": "- The number to be checked.",
+              "type": "number",
+            },
+          },
+        ],
+        "required": [
+          "num",
+        ],
+        "result": {
+          "description": "- True if the number is even, false otherwise.",
+          "schema": {
+            "description": undefined,
+            "type": "boolean",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase6.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "isValidEntity",
+      "signature": {
+        "description": "Predicate function to check if a given object satisfies certain conditions.",
+        "parameters": [
+          {
+            "name": "entity",
+            "schema": {
+              "description": "- The object of type \`MyCompositeType\` to be validated.",
+              "properties": {
+                "age": {
+                  "description": "The age of the entity. The age of the entity.",
+                  "type": "number",
+                },
+                "isActive": {
+                  "description": "Whether the entity is active or not.",
+                  "type": "boolean",
+                },
+                "name": {
+                  "description": "The name of the entity. The name of the entity.",
+                  "type": "string",
+                },
+              },
+              "required": [
+                "name",
+                "age",
+                "isActive",
+              ],
+              "type": "object",
+            },
+          },
+        ],
+        "required": [
+          "entity",
+        ],
+        "result": {
+          "description": "A boolean indicating whether the entity satisfies the conditions.",
+          "schema": {
+            "description": undefined,
+            "type": "boolean",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase7.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "processAction",
+      "signature": {
+        "description": "Performs a mathematical operation based on the specified action.",
+        "parameters": [
+          {
+            "name": "action",
+            "schema": {
+              "description": "- The action to perform ('add', 'subtract', or 'multiply').",
+              "enum": [
+                "add",
+                "subtract",
+                "multiply",
+              ],
+              "type": "string",
+            },
+          },
+          {
+            "name": "operand1",
+            "schema": {
+              "description": "- The first operand for the operation.",
+              "type": "number",
+            },
+          },
+          {
+            "name": "operand2",
+            "schema": {
+              "description": "- The second operand for the operation.",
+              "type": "number",
+            },
+          },
+        ],
+        "required": [
+          "action",
+          "operand1",
+          "operand2",
+        ],
+        "result": {
+          "description": "The result of the mathematical operation.",
+          "schema": {
+            "description": undefined,
+            "type": "number",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase8.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "processAction2",
+      "signature": {
+        "description": "Performs a mathematical operation based on the specified action.",
+        "parameters": [
+          {
+            "name": "action",
+            "schema": {
+              "description": "- The action to perform ('add', 'subtract', or 'multiply').",
+              "enum": [
+                "Add",
+                "Subtract",
+                "Multiply",
+              ],
+              "type": "string",
+            },
+          },
+          {
+            "name": "operand1",
+            "schema": {
+              "description": "- The first operand for the operation.",
+              "type": "number",
+            },
+          },
+          {
+            "name": "operand2",
+            "schema": {
+              "description": "- The second operand for the operation.",
+              "type": "number",
+            },
+          },
+        ],
+        "required": [
+          "action",
+          "operand1",
+          "operand2",
+        ],
+        "result": {
+          "description": "The result of the mathematical operation.",
+          "schema": {
+            "description": undefined,
+            "type": "number",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase9.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "processBooleanOrUndefined",
+      "signature": {
+        "description": "Accepts a union of boolean and undefined and returns a union of boolean and undefined.",
+        "parameters": [
+          {
+            "name": "input",
+            "schema": {
+              "description": undefined,
+              "type": "boolean",
+            },
+          },
+        ],
+        "required": [],
+        "result": {
+          "description": "The input value echoed back if it's a boolean, or undefined if the input is undefined.",
+          "schema": {
+            "description": undefined,
+            "type": "boolean",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase10.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "processStringOrUndefined",
+      "signature": {
+        "description": "Accepts a union of string and undefined and returns a union of string and undefined.",
+        "parameters": [
+          {
+            "name": "input",
+            "schema": {
+              "description": undefined,
+              "type": "string",
+            },
+          },
+        ],
+        "required": [],
+        "result": {
+          "description": "The input value echoed back if it's a string, or undefined if the input is undefined.",
+          "schema": {
+            "description": undefined,
+            "type": "string",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase11.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "processStringsAsync",
+      "signature": {
+        "description": "A function that processes an array of strings asynchronously.",
+        "parameters": [
+          {
+            "name": "inputArray",
+            "schema": {
+              "description": "The array of strings to process.",
+              "items": {
+                "description": undefined,
+                "type": "string",
+              },
+              "type": "array",
+            },
+          },
+        ],
+        "required": [
+          "inputArray",
+        ],
+        "result": {
+          "description": "A promise that resolves with the processed array of strings.",
+          "schema": {
+            "description": undefined,
+            "items": {
+              "description": undefined,
+              "type": "string",
+            },
+            "type": "array",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase12.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "processUserProfileAsync",
+      "signature": {
+        "description": "Processes a user profile, performs validation, and returns a summary.",
+        "parameters": [
+          {
+            "name": "userProfile",
+            "schema": {
+              "description": "The user profile to be processed.",
+              "properties": {
+                "address": {
+                  "description": "The address of the user, including street, city, and postal code. The address of the user, including street, city, and postal code.",
+                  "properties": {
+                    "city": {
+                      "description": "The city where the user resides. The city where the user resides.",
+                      "type": "string",
+                    },
+                    "postalCode": {
+                      "description": "The postal code of the user's address. The postal code of the user's address.",
+                      "type": "string",
+                    },
+                    "street": {
+                      "description": "The street where the user resides. The street where the user resides.",
+                      "type": "string",
+                    },
+                  },
+                  "required": [
+                    "street",
+                    "city",
+                    "postalCode",
+                  ],
+                  "type": "object",
+                },
+                "age": {
+                  "description": "The age of the user. The age of the user.",
+                  "type": "number",
+                },
+                "name": {
+                  "description": "The name of the user. The name of the user.",
+                  "type": "string",
+                },
+              },
+              "required": [
+                "name",
+                "age",
+                "address",
+              ],
+              "type": "object",
+            },
+          },
+        ],
+        "required": [
+          "userProfile",
+        ],
+        "result": {
+          "description": "A promise that resolves to a summary of the user profile.",
+          "schema": {
+            "description": undefined,
+            "type": "string",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase13.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "asyncCounterGenerator",
+      "signature": {
+        "description": "Returns an asynchronous generator that yields incremented values with a delay.",
+        "parameters": [
+          {
+            "name": "start",
+            "schema": {
+              "description": "- The starting value of the counter.",
+              "type": "number",
+            },
+          },
+          {
+            "name": "end",
+            "schema": {
+              "description": "- The end value (exclusive) of the counter.",
+              "type": "number",
+            },
+          },
+          {
+            "name": "delay",
+            "schema": {
+              "description": "- The delay in milliseconds between each yielded value.",
+              "type": "number",
+            },
+          },
+        ],
+        "required": [
+          "start",
+          "end",
+          "delay",
+        ],
+        "result": {
+          "description": "An asynchronous generator that produces a sequence of incremented values.",
+          "schema": {
+            "description": undefined,
+            "items": {
+              "description": undefined,
+              "type": "number",
+            },
+            "type": "array",
+          },
+        },
+      },
+    },
+  ],
+}
+`;
+
+exports[`getProgramSchema properly extracts program schema from "testcase14.ts.txt" 1`] = `
+{
+  "functions": [
+    {
+      "name": "counterGenerator",
+      "signature": {
+        "description": "Returns a generator that yields incremented values.",
+        "parameters": [
+          {
+            "name": "start",
+            "schema": {
+              "description": "- The starting value of the counter.",
+              "type": "number",
+            },
+          },
+          {
+            "name": "end",
+            "schema": {
+              "description": "- The end value (exclusive) of the counter.",
+              "type": "number",
+            },
+          },
+        ],
+        "required": [
+          "start",
+          "end",
+        ],
+        "result": {
+          "description": "A generator that produces a sequence of incremented values.",
+          "schema": {
+            "description": undefined,
+            "items": {
+              "description": undefined,
+              "type": "number",
+            },
+            "type": "array",
+          },
+        },
+      },
+    },
+  ],
+}
+`;

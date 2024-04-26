@@ -1,0 +1,7 @@
+/**
+ * Predicate function that checks if a number is even.
+ * @param {number} num - The number to be checked.
+ * @returns {boolean} - True if the number is even, false otherwise.
+ */
+export function isEven(num: number): boolean {
+}

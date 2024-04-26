@@ -1,0 +1,18 @@
+/**
+ * Represents the possible actions for the process function.
+ */
+export type Action = 'add' | 'subtract' | 'multiply';
+
+/**
+ * Performs a mathematical operation based on the specified action.
+ *
+ * @param action - The action to perform ('add', 'subtract', or 'multiply').
+ * @param operand1 - The first operand for the operation.
+ * @param operand2 - The second operand for the operation.
+ * @returns The result of the mathematical operation.
+ *
+ * @remarks
+ * This function supports addition, subtraction, and multiplication.
+ */
+export function processAction(action: Action, operand1: number, operand2: number): number {
+}

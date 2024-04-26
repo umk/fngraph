@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createPredicateBatched iterates through getter records 1`] = `
+[
+  {
+    "declaration A": 0,
+  },
+  {
+    "declaration A": 2,
+  },
+  {
+    "declaration A": 4,
+  },
+  {
+    "declaration A": 6,
+  },
+  {
+    "declaration A": 8,
+  },
+  {
+    "declaration A": 10,
+  },
+  {
+    "declaration A": 12,
+  },
+  {
+    "declaration A": 14,
+  },
+  {
+    "declaration A": 16,
+  },
+  {
+    "declaration A": 18,
+  },
+  {
+    "declaration A": 20,
+  },
+  {
+    "declaration A": 22,
+  },
+  {
+    "declaration A": 24,
+  },
+]
+`;
+
+exports[`createPredicateBatched iterates through getter records 2`] = `
+[
+  7,
+  7,
+  7,
+  4,
+]
+`;
+
+exports[`createPredicateBatched permutates records with another node 1`] = `
+[
+  {
+    "declaration A": 0,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 2,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 4,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 6,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 8,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 10,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 12,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 14,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 16,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 18,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 20,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 22,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 24,
+    "declaration B": 10,
+  },
+  {
+    "declaration A": 0,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 2,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 4,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 6,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 8,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 10,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 12,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 14,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 16,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 18,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 20,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 22,
+    "declaration B": 20,
+  },
+  {
+    "declaration A": 24,
+    "declaration B": 20,
+  },
+]
+`;
+
+exports[`createPredicateBatched permutates records with another node 2`] = `
+[
+  7,
+  7,
+  7,
+  4,
+]
+`;

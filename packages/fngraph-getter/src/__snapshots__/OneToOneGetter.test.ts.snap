@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createOneToOne iterates through getter records 1`] = `
+[
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": 7,
+  },
+]
+`;
+
+exports[`createOneToOne permutates records with another node 1`] = `
+[
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": 7,
+    "declaration D": 10,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+    "declaration D": 20,
+  },
+  {
+    "declaration A": 3,
+    "declaration B": 4,
+    "declaration C": 7,
+    "declaration D": 20,
+  },
+]
+`;

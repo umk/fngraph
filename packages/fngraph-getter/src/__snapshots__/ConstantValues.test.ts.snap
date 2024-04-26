@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createConstant iterates through constant records 1`] = `
+[
+  {
+    "contexts": [
+      {
+        "declaration A": 1,
+        "declaration B": 2,
+      },
+    ],
+    "n": 1,
+  },
+  {
+    "contexts": [
+      {
+        "declaration A": 3,
+        "declaration B": 4,
+      },
+    ],
+    "n": 0,
+  },
+]
+`;

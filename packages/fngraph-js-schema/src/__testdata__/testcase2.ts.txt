@@ -1,0 +1,11 @@
+/**
+ * Fetches exchange rates from an external API and converts amounts from one currency to another.
+ * Returns a promise that resolves to an array of converted amounts.
+ * 
+ * @param sourceCurrency The currency of the input amounts.
+ * @param targetCurrency The currency to convert the amounts to.
+ * @param amounts An array of amounts to be converted.
+ * @returns A promise that resolves to an array of converted amounts.
+ */
+export async function convertCurrencyAsync(sourceCurrency: string, targetCurrency: string, amounts: Array<number>): Promise<Array<number>> {
+}

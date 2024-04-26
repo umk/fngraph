@@ -1,0 +1,19 @@
+{
+  "resetMocks": true,
+  "collectCoverage": true,
+  "coverageThreshold": {
+    "global": {
+      "branches": 70,
+      "functions": 70,
+      "lines": 70,
+      "statements": -40
+    }
+  },
+  "coveragePathIgnorePatterns": ["/node_modules/", "__fixtures__"],
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "testMatch": ["<rootDir>/src/**/*.test.ts"],
+  "testPathIgnorePatterns": ["/node_modules/"],
+  "roots": ["<rootDir>"],
+  "setupFilesAfterEnv": ["<rootDir>/src/__setup__/jest.js"]
+}

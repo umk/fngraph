@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createDataRecordGenerator iterates through getter records 1`] = `
+[
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 3,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 30,
+  },
+  {
+    "declaration A": 1,
+    "declaration B": 2,
+    "declaration C": 300,
+  },
+  {
+    "declaration A": 10,
+    "declaration B": 20,
+    "declaration C": 3,
+  },
+  {
+    "declaration A": 10,
+    "declaration B": 20,
+    "declaration C": 30,
+  },
+  {
+    "declaration A": 10,
+    "declaration B": 20,
+    "declaration C": 300,
+  },
+]
+`;
+
+exports[`createDataRecordGenerator throws an error if nodes have recursive dependencies 1`] = `"The nodes have recursive dependency"`;
+
+exports[`createDataRecordGenerator throws an error nodes has a dependency on itself 1`] = `"The nodes have recursive dependency"`;

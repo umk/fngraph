@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapPrototype matches constants 1`] = `
+[
+  {
+    "declaration": "valueB",
+  },
+]
+`;
+
+exports[`mapPrototype matches top level value 1`] = `
+[
+  {
+    "declaration": "civis pauper amiculum",
+  },
+]
+`;
+
+exports[`mapPrototype performs matching against array 1`] = `
+[
+  {
+    "declaration": "civis pauper amiculum",
+  },
+  {
+    "declaration": "amor ventosus cur",
+  },
+  {
+    "declaration": "denuncio asporto rerum",
+  },
+]
+`;
+
+exports[`mapPrototype performs partial structural comparison 1`] = `
+[
+  {
+    "declarationA1": "propertyA1",
+    "declarationB22": "propertyB221",
+  },
+  {
+    "declarationA1": "propertyA1",
+    "declarationB22": "propertyB222",
+  },
+  {
+    "declarationA1": "propertyA1",
+    "declarationB22": "propertyB223",
+  },
+]
+`;

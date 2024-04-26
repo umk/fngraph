@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "outDir": "dist/cjs"
+  },
+  "extends": "./tsconfig.json",
+  "exclude": ["src/__setup__", "src/**/__fixtures__/**", "src/**/*.test.ts"]
+}
