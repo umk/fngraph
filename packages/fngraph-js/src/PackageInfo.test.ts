@@ -48,9 +48,7 @@ describe('getPackageInfo', () => {
     // Mock fs.stat to return a directory
     jest.mocked(fs.stat).mockResolvedValue({ isFile: () => false } as Stats)
 
-    await expect(getPackageInfo(packagePath)).rejects.toThrow(
-      'The package.json in the location directory is not a file',
-    )
+    await expect(getPackageInfo(packagePath)).rejects.toThrow('The package.json is not a file')
   })
 
   it("should throw error if package.json doesn't exist", async () => {

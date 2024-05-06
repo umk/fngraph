@@ -25,7 +25,7 @@ export async function getPackageInfo(packagePath: string): Promise<PackageInfo> 
   try {
     const s = await fs.stat(p)
     if (!s.isFile()) {
-      throw new Error('The package.json in the location directory is not a file')
+      throw new Error('The package.json is not a file')
     }
   } catch (error) {
     if (error instanceof Object && 'code' in error && error.code === 'ENOENT') {
@@ -42,7 +42,7 @@ export async function getPackageInfo(packagePath: string): Promise<PackageInfo> 
     return { name, version, description, types }
   } catch (error) {
     if (error instanceof SyntaxError) {
-      throw new Error('Cannot parse package.json file')
+      throw new Error("Cannot parse package.json file because it's not a valid JSON")
     }
     throw error
   }
