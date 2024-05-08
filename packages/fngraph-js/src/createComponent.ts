@@ -1,4 +1,4 @@
-import { Component, ComponentSchema } from '@fngraph/component'
+import { Component, ComponentJsonSchema } from '@fngraph/component'
 import { FunctionSchema } from '@fngraph/js-schema'
 
 import ComponentHandler from './ComponentHandler'
@@ -14,7 +14,7 @@ function createComponent(
   } = schema
   const parameter =
     parameters.length === 0
-      ? ({ type: 'object', properties: {} } satisfies ComponentSchema)
+      ? ({ type: 'object', properties: {} } satisfies ComponentJsonSchema)
       : parameters[0].schema
   if (parameters.length <= 1) {
     const builder = createComponentBuilder(handler, parameter, result?.schema)

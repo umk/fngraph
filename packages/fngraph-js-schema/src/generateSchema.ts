@@ -1,4 +1,4 @@
-import { ComponentSchema } from '@fngraph/component'
+import { ComponentJsonSchema } from '@fngraph/component'
 import ts from 'typescript'
 
 import NotSupportedError from './NotSupportedError'
@@ -12,7 +12,7 @@ function generateSchema(
 ):
   | {
       /** The schema generated against provided type */
-      schema: ComponentSchema
+      schema: ComponentJsonSchema
       /** Indicates whether the value is required */
       isRequired: boolean
     }
@@ -20,7 +20,7 @@ function generateSchema(
   function generateSchema(
     symbol: ts.Symbol | undefined,
     type?: ts.Type,
-  ): { schema: ComponentSchema; isRequired: boolean } | undefined {
+  ): { schema: ComponentJsonSchema; isRequired: boolean } | undefined {
     if (type) return generateSchemaByType(symbol, type)
     if (!symbol) throw new Error('Either symbol or type must be provided')
     symbol = resolveAlias(checker, symbol)
@@ -31,7 +31,7 @@ function generateSchema(
   function generateSchemaByType(
     symbol: ts.Symbol | undefined,
     type: ts.Type,
-  ): { schema: ComponentSchema; isRequired: boolean } | undefined {
+  ): { schema: ComponentJsonSchema; isRequired: boolean } | undefined {
     const description = symbol && getDescription(checker, symbol)
     if (type.flags & ts.TypeFlags.Object) {
       if (
@@ -103,7 +103,7 @@ function generateSchema(
     }
     return undefined
   }
-  function generateObjectSchema(type: ts.Type): ComponentSchema {
+  function generateObjectSchema(type: ts.Type): ComponentJsonSchema {
     const item = getArrayItemType(type)
     if (item) {
       const itemSchema = generateSchema(item.symbol, item)
@@ -123,7 +123,7 @@ function generateSchema(
         prev[cur.name] = schema
         return prev
       },
-      {} as Record<string, ComponentSchema>,
+      {} as Record<string, ComponentJsonSchema>,
     )
     return { type: 'object', properties, required }
   }

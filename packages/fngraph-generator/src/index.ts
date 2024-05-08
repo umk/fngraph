@@ -13,8 +13,11 @@ import Getter, { DEFAULT_MAX_BATCH, DEFAULT_MAX_BUFFER, GetterFactory } from './
 import IncomingMapper, { contextAsRecord } from './IncomingMapper'
 import MergeContexts, { createMergeContexts } from './MergeContexts'
 import OutgoingMapper, { recordAsContext } from './OutgoingMapper'
+import PropertiesGetter, { combinePropertiesGetters } from './PropertiesGetter'
+import PropertyRef from './PropertyRef'
 
 export {
+  combinePropertiesGetters,
   CONTEXT_GROUP_INVERSION,
   ContextArrayGroup,
   contextAsRecord,
@@ -37,5 +40,7 @@ export {
   IncomingMapper,
   MergeContexts,
   OutgoingMapper,
+  PropertiesGetter,
+  PropertyRef,
   recordAsContext,
 }

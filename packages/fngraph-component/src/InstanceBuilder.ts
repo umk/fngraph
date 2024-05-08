@@ -1,21 +1,24 @@
 import { Context, DataRecord, DeclarationID } from '@fngraph/data'
 import {
+  combinePropertiesGetters,
   contextAsRecord,
   IncomingMapper,
   OutgoingMapper,
+  PropertiesGetter,
   recordAsContext,
 } from '@fngraph/generator'
 
 import Component from './Component'
 import ComponentSchema from './ComponentSchema'
 import Instance from './Instance'
-import Prototype from './Prototype'
+import Prototype, { createGetProperties } from './Prototype'
 import Statement from './Statement'
 import { getDeclarationsIds } from './getDeclarations'
 import mapPrototype from './mapPrototype'
 import mapStatement from './mapStatement'
 
 function getSchemaProperties(schema: ComponentSchema): Array<string> {
+  if (Array.isArray(schema)) return schema
   if (schema.type === 'array') return getSchemaProperties(schema.items)
   if (schema.type === 'object') return Object.getOwnPropertyNames(schema.properties)
   return []
@@ -35,7 +38,7 @@ export type InstanceIncoming<R extends DataRecord> = {
 
 export type InstanceOutgoing<R extends DataRecord> = {
   /**
-   * A collection of declarations, which values are selected
+   * A collection of declarations, which values are produced
    * by mapper from getter output.
    */
   declarations: Array<DeclarationID>
@@ -44,6 +47,11 @@ export type InstanceOutgoing<R extends DataRecord> = {
    * outgoing declarations.
    */
   mapper: OutgoingMapper<R>
+  /**
+   * A function that produces a collection of properties to be
+   * collected from the getter output based on other nodes inputs.
+   */
+  getProperties: PropertiesGetter
 }
 
 export enum InstancePriority {
@@ -95,6 +103,7 @@ class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
     return this.out({
       mapper: mapPrototype(prototype),
       declarations: getDeclarationsIds(prototype),
+      getProperties: createGetProperties(prototype),
     })
   }
   invert(invert = true): this {
@@ -121,6 +130,7 @@ class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
       outgoing: outgoing.declarations,
       invert: this._invert,
       isPure: this._component.isPure,
+      getProperties: outgoing.getProperties,
     }
   }
 
@@ -152,7 +162,8 @@ class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
     }
     const declarations = Array.from(new Set(this._outgoing.flatMap((m) => m.declarations)))
     const mapper = (record: R) => this.enumerateContexts(record, 0)
-    return { mapper, declarations }
+    const getProperties = combinePropertiesGetters(this._outgoing.map((m) => m.getProperties))
+    return { mapper, declarations, getProperties }
   }
 }
 

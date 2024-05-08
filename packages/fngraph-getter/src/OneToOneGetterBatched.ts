@@ -7,6 +7,7 @@ import {
   GeneratorValue,
   Getter,
   GetterFactory,
+  PropertyRef,
 } from '@fngraph/generator'
 
 import { createInversion } from './InversionFunction'
@@ -15,6 +16,7 @@ import RecordBatchGroup, { getRecordBatchGroup } from './RecordBatchGroup'
 
 type OneToOneGetterBatched<P extends DataRecord, R extends DataRecord> = (
   records: Array<P>,
+  properties: Array<PropertyRef>,
 ) => Promise<Array<R | Falsy>>
 
 export function createOneToOneBatched<P extends DataRecord, R extends DataRecord>(
@@ -24,7 +26,13 @@ export function createOneToOneBatched<P extends DataRecord, R extends DataRecord
 ): GetterFactory<P, R> {
   return function (incoming, outgoing): Getter {
     const iterationF = createIteration(outgoing)
-    return async function* (records, context, getRecord, invert): AsyncGenerator<GeneratorValue> {
+    return async function* (
+      properties,
+      records,
+      context,
+      getRecord,
+      invert,
+    ): AsyncGenerator<GeneratorValue> {
       const inversion = createInversion(invert)
       const iteration = iterationF(context, invert)
       for await (let value of records) {
@@ -58,8 +66,11 @@ export function createOneToOneBatched<P extends DataRecord, R extends DataRecord
             if (groups.size === maxBatch || groupIndexes.length === maxBuffer || done) {
               if (batchSize > 0) {
                 const g = Array.from(groups.values()).filter((g) => g.include)
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                const derived = await source(g.map((g) => incoming(g.base!)))
+                const derived = await source(
+                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                  g.map((g) => incoming(g.base!)),
+                  properties,
+                )
                 derived.map(inversion).forEach((r, i) => (g[i].derived = r || undefined))
               }
               for (const groupIndex of groupIndexes) {

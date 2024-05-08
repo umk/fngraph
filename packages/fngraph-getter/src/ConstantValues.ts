@@ -16,7 +16,13 @@ export function createConstant<V extends DataRecord>(
 ): GetterFactory<never, V> {
   return function (_incoming, outgoing): Getter {
     const iterationF = createIteration(outgoing)
-    return async function* (records, context, getRecord, invert): AsyncGenerator<GeneratorValue> {
+    return async function* (
+      _properties,
+      records,
+      context,
+      getRecord,
+      invert,
+    ): AsyncGenerator<GeneratorValue> {
       const iteration = iterationF(context, invert)
       for await (const current of records) {
         context.advanceToValueGroup(current)

@@ -1,4 +1,5 @@
-import { DataRecord, DataValue, Declaration, Primitive } from '@fngraph/data'
+import { DataRecord, DataValue, Declaration, DeclarationID, Primitive } from '@fngraph/data'
+import { PropertiesGetter, PropertyRef } from '@fngraph/generator'
 
 type Prototype<V = unknown> = DataValue extends V
   ? unknown
@@ -56,6 +57,31 @@ export function createPredicateMatcher<V extends DataValue>(
  */
 export const anyValue: Matcher<DataValue> = function* (record: DataRecord): Generator<DataRecord> {
   yield record
+}
+
+export function createGetProperties(prototype: Prototype<unknown>): PropertiesGetter {
+  const propertiesBase: Array<PropertyRef> = []
+  const propertiesByDecl = new Map<DeclarationID, PropertyRef>()
+  function getProperties(prototype: Prototype<unknown>, ref: Array<string>) {
+    if (prototype !== null && typeof prototype === 'object') {
+      for (const [property, value] of Object.entries(prototype)) {
+        getProperties(value, [...ref, property])
+      }
+    } else if (prototype instanceof Declaration) {
+      propertiesByDecl.set(prototype.id, ref as PropertyRef)
+    } else {
+      propertiesBase.push(ref as PropertyRef)
+    }
+  }
+  getProperties(prototype, [])
+  return function (incomingDecls: Array<DeclarationID>): Array<PropertyRef> {
+    const result = incomingDecls.reduce((prev, cur) => {
+      const ref = propertiesByDecl.get(cur)
+      ref && prev.push(ref)
+      return prev
+    }, [] as Array<PropertyRef>)
+    return [...propertiesBase, ...result]
+  }
 }
 
 export default Prototype

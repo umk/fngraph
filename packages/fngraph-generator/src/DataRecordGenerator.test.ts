@@ -7,7 +7,13 @@ import Getter from './Getter'
 import { createDataNode } from './__fixtures__'
 
 function createGetter(values: Array<DataRecord>): Getter {
-  return async function* (records, context, getRecord, invert): AsyncGenerator<GeneratorValue> {
+  return async function* (
+    _properties,
+    records,
+    context,
+    getRecord,
+    invert,
+  ): AsyncGenerator<GeneratorValue> {
     if (invert) throw new Error('inversion is not supported')
     for await (const current of records) {
       context.advanceToValueGroup(current)

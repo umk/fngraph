@@ -9,6 +9,7 @@ import {
   GeneratorValue,
   Getter,
   GetterFactory,
+  PropertyRef,
 } from '@fngraph/generator'
 
 import { createIteration } from './IterationFunction'
@@ -16,6 +17,7 @@ import RecordBatchGroup, { getRecordBatchGroup } from './RecordBatchGroup'
 
 type OneToManyGetterBatched<P extends DataRecord, R extends DataRecord> = (
   record: Array<P>,
+  properties: Array<PropertyRef>,
 ) => Promise<Array<Array<R | Falsy>>>
 
 export function createOneToManyBatched<P extends DataRecord, R extends DataRecord>(
@@ -25,7 +27,13 @@ export function createOneToManyBatched<P extends DataRecord, R extends DataRecor
 ): GetterFactory<P, R> {
   return function (incoming, outgoing): Getter {
     const iterationF = createIteration(outgoing)
-    return async function* (records, context, getRecord, invert): AsyncGenerator<GeneratorValue> {
+    return async function* (
+      properties,
+      records,
+      context,
+      getRecord,
+      invert,
+    ): AsyncGenerator<GeneratorValue> {
       const iteration = iterationF(context, invert)
       for await (let value of records) {
         context.advanceToValueGroup(value)
@@ -58,8 +66,13 @@ export function createOneToManyBatched<P extends DataRecord, R extends DataRecor
             if (groups.size === maxBatch || groupIndexes.length === maxBuffer || done) {
               if (batchSize > 0) {
                 const g = Array.from(groups.values()).filter((g) => g.include)
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                ;(await source(g.map((g) => incoming(g.base!))))
+                ;(
+                  await source(
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                    g.map((g) => incoming(g.base!)),
+                    properties,
+                  )
+                )
                   .map((r) => {
                     if (!invert) return r.filter(Boolean)
                     return r.some(Boolean) ? undefined : [CONTEXT_GROUP_INVERSION]

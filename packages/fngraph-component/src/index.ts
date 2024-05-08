@@ -9,9 +9,11 @@ import ComponentBuilder, {
   createPredicateBatched,
 } from './ComponentBuilder'
 import ComponentSchema, {
+  ComponentJsonSchema,
   ComponentSchemaArray,
   ComponentSchemaObject,
   ComponentSchemaPrimitive,
+  ComponentSchemaProperties,
 } from './ComponentSchema'
 import Instance from './Instance'
 import InstanceBuilder, {
@@ -27,10 +29,12 @@ export {
   anyValue,
   Component,
   ComponentBuilder,
+  ComponentJsonSchema,
   ComponentSchema,
   ComponentSchemaArray,
   ComponentSchemaObject,
   ComponentSchemaPrimitive,
+  ComponentSchemaProperties,
   createConstant,
   createOneToMany,
   createOneToManyBatched,

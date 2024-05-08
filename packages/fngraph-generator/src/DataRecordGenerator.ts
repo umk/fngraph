@@ -17,6 +17,12 @@ export function createDataRecordGenerator(
   const n = getOrderedNodes(nodes, incomings)
   const parentRefs = getParentRefs(n, incomings)
   const parentTrRefs = getParentTrRefs(n, parentRefs)
+  const incomingDecls = Array.from(
+    nodes.reduce((prev, cur) => {
+      cur.incoming.forEach((d) => prev.add(d))
+      return prev
+    }, new Set<DeclarationID>()),
+  )
   const mergeContexts = createMergeContexts(declarations)
   function createGeneratorAt(index: number): {
     iter: () => AsyncGenerator<GeneratorValue>
@@ -50,11 +56,12 @@ export function createDataRecordGenerator(
       // ...current node has a dependency, which is not an upstream node
       currentTrRefs[0] > index + 1
     const context = new GeneratorContext(index, currentTrRefs, isCached)
-    const { getter, invert } = n[index]
+    const { getter, getProperties, invert } = n[index]
     const getRecord = createGetContextRecord(currentRefs, mergeContexts)
     const iter = function (): AsyncGenerator<GeneratorValue> {
       const records = upstreamIter.iter()
-      return getter(records, context, getRecord, invert)
+      const properties = getProperties(incomingDecls)
+      return getter(properties, records, context, getRecord, invert)
     }
     return { iter, isCached }
   }

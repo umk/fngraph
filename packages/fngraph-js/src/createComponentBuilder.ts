@@ -24,6 +24,7 @@ function createComponentBuilder(
   parameter: ComponentSchema,
   result: ComponentSchema | undefined,
 ): ComponentBuilder<never, never> | undefined {
+  if (Array.isArray(parameter) || (result && Array.isArray(result))) return undefined
   if (parameter.type === 'array') {
     if (parameter.items.type === 'object' && result?.type === 'array') {
       if (result.items.type === 'array') {

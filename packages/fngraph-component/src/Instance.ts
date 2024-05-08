@@ -1,5 +1,6 @@
 import { DataRecord, DeclarationID } from '@fngraph/data'
 import { Getter } from '@fngraph/generator'
+import { PropertiesGetter } from '@fngraph/generator'
 
 import Component from './Component'
 import InstanceBuilder from './InstanceBuilder'
@@ -37,6 +38,11 @@ type Instance = {
    * Indicates whether or not instance getter has side effects.
    */
   isPure: boolean
+  /**
+   * A function that produces a collection of properties to be
+   * collected from the getter output based on other nodes inputs.
+   */
+  getProperties: PropertiesGetter
 }
 
 export type InstanceConfig<P extends DataRecord, R extends DataRecord> = (

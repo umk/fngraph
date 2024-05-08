@@ -24,7 +24,7 @@ describe('createConstant', () => {
       { [declarationA]: 3, [declarationB]: 4 },
     ])(contextAsRecord, recordAsContext)
     const derived: Array<GeneratorValue> = []
-    for await (const record of getter(records, context, getRecord, false)) {
+    for await (const record of getter([], records, context, getRecord, false)) {
       derived.push({
         contexts: [...record.contexts],
         n: record.n,

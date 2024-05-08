@@ -1,6 +1,7 @@
 import { DeclarationID } from '@fngraph/data'
 
 import Getter from './Getter'
+import PropertiesGetter from './PropertiesGetter'
 
 type DataNode = {
   /**
@@ -27,6 +28,11 @@ type DataNode = {
    * node is invoked later.
    */
   priority: number
+  /**
+   * A function that produces a collection of properties to be
+   * collected from the getter output based on other nodes inputs.
+   */
+  getProperties: PropertiesGetter
 }
 
 export default DataNode

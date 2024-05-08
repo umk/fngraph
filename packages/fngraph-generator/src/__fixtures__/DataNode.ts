@@ -7,6 +7,7 @@ export function createDataNode(overrides?: Partial<DataNode>): DataNode {
     getter: jest.fn(),
     priority: 0,
     invert: false,
+    getProperties: () => [],
     ...overrides,
   }
 }

@@ -6,12 +6,14 @@ import {
   GeneratorValue,
   Getter,
   GetterFactory,
+  PropertyRef,
 } from '@fngraph/generator'
 
 import { createIteration } from './IterationFunction'
 
 type OneToManyGetter<P extends DataRecord, R extends DataRecord> = (
   record: P,
+  properties: Array<PropertyRef>,
 ) => AsyncGenerator<R | Falsy>
 
 export function createOneToMany<P extends DataRecord, R extends DataRecord>(
@@ -19,7 +21,13 @@ export function createOneToMany<P extends DataRecord, R extends DataRecord>(
 ): GetterFactory<P, R> {
   return function (incoming, outgoing): Getter {
     const iterationF = createIteration(outgoing)
-    return async function* (records, context, getRecord, invert): AsyncGenerator<GeneratorValue> {
+    return async function* (
+      properties,
+      records,
+      context,
+      getRecord,
+      invert,
+    ): AsyncGenerator<GeneratorValue> {
       const iteration = iterationF(context, invert)
       async function* getSourceRecords(current: GeneratorValue) {
         if (context.groups.length > context.groupIndex) {
@@ -34,7 +42,7 @@ export function createOneToMany<P extends DataRecord, R extends DataRecord>(
         } else {
           const base = getRecord(current.contexts)
           if (base) {
-            const derivations = source(incoming(base))
+            const derivations = source(incoming(base), properties)
             let group: ContextArrayGroup<R> = []
             if (context.isCached) {
               group = []

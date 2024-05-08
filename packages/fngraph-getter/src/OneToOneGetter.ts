@@ -1,11 +1,19 @@
 import { DataRecord } from '@fngraph/data'
-import { ContextGroup, Falsy, GeneratorValue, Getter, GetterFactory } from '@fngraph/generator'
+import {
+  ContextGroup,
+  Falsy,
+  GeneratorValue,
+  Getter,
+  GetterFactory,
+  PropertyRef,
+} from '@fngraph/generator'
 
 import { createInversion } from './InversionFunction'
 import { createIteration } from './IterationFunction'
 
 export type OneToOneGetter<P extends DataRecord, R extends DataRecord> = (
   record: P,
+  properties: Array<PropertyRef>,
 ) => Promise<R | Falsy>
 
 export function createOneToOne<P extends DataRecord, R extends DataRecord>(
@@ -13,7 +21,13 @@ export function createOneToOne<P extends DataRecord, R extends DataRecord>(
 ): GetterFactory<P, R> {
   return function (incoming, outgoing): Getter {
     const iterationF = createIteration(outgoing)
-    return async function* (records, context, getRecord, invert): AsyncGenerator<GeneratorValue> {
+    return async function* (
+      properties,
+      records,
+      context,
+      getRecord,
+      invert,
+    ): AsyncGenerator<GeneratorValue> {
       const inversion = createInversion(invert)
       const iteration = iterationF(context, invert)
       async function getSourceRecord(current: GeneratorValue) {
@@ -29,7 +43,7 @@ export function createOneToOne<P extends DataRecord, R extends DataRecord>(
         } else {
           const base = getRecord(current.contexts)
           if (base) {
-            const derived = inversion(await source(incoming(base)))
+            const derived = inversion(await source(incoming(base), properties))
             if (context.isCached) context.groups.push(derived || undefined)
             if (derived) return { base, derived }
           } else {
