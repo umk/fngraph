@@ -4,7 +4,7 @@ import PropertyRef from './PropertyRef'
 describe('combinePropertiesGetters', () => {
   it('should return an empty array if input array is empty', () => {
     const getters: Array<PropertiesGetter> = []
-    const uniqueRefs = combinePropertiesGetters(getters)([])
+    const uniqueRefs = combinePropertiesGetters(getters)([], false)
     expect(uniqueRefs).toEqual([])
   })
 
@@ -17,7 +17,7 @@ describe('combinePropertiesGetters', () => {
       [['a', 'b', 'c'], ['f']],
     ].map((v) => () => v as Array<PropertyRef>)
     const expectedUniqueRefs: Array<PropertyRef> = [['a', 'b', 'c'], ['a', 'e'], ['f']]
-    const uniqueRefs = combinePropertiesGetters(getters)([])
+    const uniqueRefs = combinePropertiesGetters(getters)([], false)
     expect(uniqueRefs).toEqual(expectedUniqueRefs)
   })
 })

@@ -27,18 +27,20 @@ function createGetSources(instances: Array<Instance>, inputs: Array<DeclarationI
   function getInstanceSources(n: number): Array<Array<number>> {
     if (markers[n]) return []
     markers[n] = true
-    const instance = instances[n]
-    const result = instance.incoming
-      .reduce(
-        (prev, cur) => {
-          const incomingInst = getDeclarationSources(cur)
-          return prev.flatMap((r) => incomingInst.map((i) => [...r, ...i]))
-        },
-        [[n]],
-      )
-      .map((r) => Array.from(new Set(r).values()))
-    markers[n] = false
-    return result
+    try {
+      const instance = instances[n]
+      return instance.incoming
+        .reduce(
+          (prev, cur) => {
+            const incomingInst = getDeclarationSources(cur)
+            return prev.flatMap((r) => incomingInst.map((i) => [...r, ...i]))
+          },
+          [[n]],
+        )
+        .map((r) => Array.from(new Set(r).values()))
+    } finally {
+      markers[n] = false
+    }
   }
   function getDeclarationSources(declarationId: DeclarationID): Array<Array<number>> {
     if (inputs.includes(declarationId)) return [[]]
@@ -65,13 +67,16 @@ function createGetSources(instances: Array<Instance>, inputs: Array<DeclarationI
   }
 }
 
-function getCombination(instances: Array<Instance>, combinations: Array<Array<Array<number>>>) {
+function getCombination(
+  instances: Array<Instance>,
+  combinations: Array<Array<Array<number>>>,
+): Array<Instance> | undefined {
   function getCombination(
     n: number,
     markers: Array<boolean>,
     count: number,
     minCount: number,
-  ): Array<Instance> | undefined {
+  ): Array<Instance> {
     let result: Array<Instance> | undefined
     if (n === combinations.length) {
       result = markers.reduce((prev, cur, n) => {
@@ -101,14 +106,14 @@ function getCombination(instances: Array<Instance>, combinations: Array<Array<Ar
         }
       }
     }
-    return result
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return result!
+  }
+  if (combinations.some((c) => c.length === 0)) {
+    return undefined
   }
   const markers = new Array(instances.length).fill(false)
-  const result = getCombination(0, markers, 0, Number.POSITIVE_INFINITY)
-  if (!result) {
-    throw new Error('Instance combination cannot be determined.')
-  }
-  return result
+  return getCombination(0, markers, 0, Number.POSITIVE_INFINITY)
 }
 
 function deriveGeneratorInstances(
@@ -116,7 +121,7 @@ function deriveGeneratorInstances(
   mandatory: Array<Instance>,
   inputs: Array<DeclarationID>,
   outputs: Array<DeclarationID>,
-): Array<Instance> {
+): Array<Instance> | undefined {
   const { getInstanceSources, getDeclarationSources } = createGetSources(instances, inputs)
   // A collection of output declarations which are still to
   // decide, which instance will provide them.

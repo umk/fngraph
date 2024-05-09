@@ -40,11 +40,9 @@ describe('deriveGeneratorInstances', () => {
     const result = deriveGeneratorInstances(instances, [], [], declarations)
     expect(result).toEqual([instanceA])
   })
-  it('throws an error if declaration cannot be resolved', () => {
+  it('returns undefined if declaration cannot be resolved', () => {
     const declarations = ['declaration B' as DeclarationID]
-    expect(() => deriveGeneratorInstances(instances, [], [], declarations)).toThrow(
-      'Instance combination cannot be determined.',
-    )
+    expect(deriveGeneratorInstances(instances, [], [], declarations)).toBeUndefined()
   })
   it('picks a combination of lower number of nodes', () => {
     const declarations = ['declaration D' as DeclarationID, 'declaration E' as DeclarationID]

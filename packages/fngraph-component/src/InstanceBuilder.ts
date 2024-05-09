@@ -5,6 +5,7 @@ import {
   IncomingMapper,
   OutgoingMapper,
   PropertiesGetter,
+  PropertyRef,
   recordAsContext,
 } from '@fngraph/generator'
 
@@ -154,11 +155,18 @@ class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
       }
     }
   }
-  private getOutgoing() {
+  private getOutgoing(): InstanceOutgoing<R> {
     if (this._outgoing.length === 0) {
-      const declarations =
-        (this._component.outgoing && getSchemaProperties(this._component.outgoing)) ?? []
-      return { mapper: recordAsContext, declarations } as InstanceOutgoing<R>
+      const declarations = ((this._component.outgoing &&
+        getSchemaProperties(this._component.outgoing)) ??
+        []) as Array<DeclarationID>
+      const getProperties = (incomingDecls: Array<DeclarationID>, invert: boolean) => {
+        if (invert) return []
+        return declarations
+          .filter((d) => incomingDecls.includes(d as DeclarationID))
+          .map((d) => [d] as PropertyRef)
+      }
+      return { mapper: recordAsContext, declarations, getProperties }
     }
     const declarations = Array.from(new Set(this._outgoing.flatMap((m) => m.declarations)))
     const mapper = (record: R) => this.enumerateContexts(record, 0)

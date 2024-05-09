@@ -7,7 +7,7 @@
     "start": "lerna run start",
     "package": "lerna run package",
     "deploy": "lerna run deploy",
-    "publish": "npm run build && lerna publish",
+    "publish": "run-s build test && lerna publish",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"packages/**/src/**/*.{ts,js}\" --write",
     "fix:lint": "eslint packages/**/src --ext .ts,.js --fix",

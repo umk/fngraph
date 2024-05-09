@@ -58,9 +58,9 @@ export function createDataRecordGenerator(
     const context = new GeneratorContext(index, currentTrRefs, isCached)
     const { getter, getProperties, invert } = n[index]
     const getRecord = createGetContextRecord(currentRefs, mergeContexts)
+    const properties = getProperties(incomingDecls, invert)
     const iter = function (): AsyncGenerator<GeneratorValue> {
       const records = upstreamIter.iter()
-      const properties = getProperties(incomingDecls)
       return getter(properties, records, context, getRecord, invert)
     }
     return { iter, isCached }

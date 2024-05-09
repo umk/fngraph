@@ -74,13 +74,15 @@ export function createGetProperties(prototype: Prototype<unknown>): PropertiesGe
     }
   }
   getProperties(prototype, [])
-  return function (incomingDecls: Array<DeclarationID>): Array<PropertyRef> {
-    const result = incomingDecls.reduce((prev, cur) => {
-      const ref = propertiesByDecl.get(cur)
-      ref && prev.push(ref)
-      return prev
-    }, [] as Array<PropertyRef>)
-    return [...propertiesBase, ...result]
+  return function (incomingDecls: Array<DeclarationID>, invert: boolean): Array<PropertyRef> {
+    const result = [...propertiesBase]
+    if (!invert) {
+      for (const decl of incomingDecls) {
+        const ref = propertiesByDecl.get(decl)
+        ref && result.push(ref)
+      }
+    }
+    return result
   }
 }
 
