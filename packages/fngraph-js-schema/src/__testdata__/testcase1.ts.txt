@@ -1,9 +1,0 @@
-/**
- * Adds two numeric values.
- *
- * @param {number} a The first numeric value.
- * @param {number} b The second numeric value.
- * @returns {number} The sum of two numeric values.
- */
-export function addNumbers(a: number, b: number): number {
-}

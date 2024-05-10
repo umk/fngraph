@@ -4,6 +4,5 @@ Implements primitives for composing and evaluating functions based on their inpu
 
 Packages:
 
-- [@fngraph/fngraph](packages/fngraph/) Main functionality
+- [@fngraph/fngraph](packages/fngraph/) Functions composition and evaluation
 - [@fngraph/component](packages/fngraph-component/) Component model
-- [@fngraph/js](packages/fngraph-js/) JavaScript analysis

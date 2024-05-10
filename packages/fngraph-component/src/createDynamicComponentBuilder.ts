@@ -1,14 +1,4 @@
 import {
-  ComponentBuilder,
-  ComponentSchema,
-  createOneToMany,
-  createOneToManyBatched,
-  createOneToOne,
-  createOneToOneBatched,
-  createPredicate,
-  createPredicateBatched,
-} from '@fngraph/component'
-import {
   OneToManyGetter,
   OneToManyGetterBatched,
   OneToOneGetter,
@@ -17,16 +7,24 @@ import {
   PredicateGetterBatched,
 } from '@fngraph/getter'
 
-import ComponentHandler from './ComponentHandler'
+import ComponentBuilder, {
+  createOneToMany,
+  createOneToManyBatched,
+  createOneToOne,
+  createOneToOneBatched,
+  createPredicate,
+  createPredicateBatched,
+} from './ComponentBuilder'
+import { ComponentJsonSchema } from './ComponentSchema'
+import DynamicComponentHandler from './DynamicComponentHandler'
 
-function createComponentBuilder(
-  handler: ComponentHandler,
-  parameter: ComponentSchema,
-  result: ComponentSchema | undefined,
+function createDynamicComponentBuilder(
+  handler: DynamicComponentHandler,
+  parameter: ComponentJsonSchema,
+  result: ComponentJsonSchema,
 ): ComponentBuilder<never, never> | undefined {
-  if (Array.isArray(parameter) || (result && Array.isArray(result))) return undefined
   if (parameter.type === 'array') {
-    if (parameter.items.type === 'object' && result?.type === 'array') {
+    if (parameter.items.type === 'object' && result.type === 'array') {
       if (result.items.type === 'array') {
         if (result.items.items.type === 'object') {
           return createOneToManyBatched(handler as OneToManyGetterBatched<never, never>)
@@ -38,17 +36,17 @@ function createComponentBuilder(
       }
     }
   } else if (parameter.type === 'object') {
-    if (result?.type === 'array') {
+    if (result.type === 'array') {
       if (result.items.type === 'object') {
         return createOneToMany(handler as OneToManyGetter<never, never>)
       }
-    } else if (result?.type === 'boolean') {
+    } else if (result.type === 'boolean') {
       return createPredicate(handler as PredicateGetter<never>)
-    } else if (result?.type === 'object') {
+    } else if (result.type === 'object') {
       return createOneToOne(handler as OneToOneGetter<never, never>)
     }
   }
   return undefined
 }
 
-export default createComponentBuilder
+export default createDynamicComponentBuilder
