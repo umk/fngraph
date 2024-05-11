@@ -2,15 +2,15 @@ import Component from './Component'
 import ComponentBuilder from './ComponentBuilder'
 import { ComponentJsonSchema } from './ComponentSchema'
 import DynamicComponentHandler from './DynamicComponentHandler'
-import createDynamicComponent from './createDynamicComponent'
-import createDynamicComponentBuilder from './createDynamicComponentBuilder'
+import createDynamic from './createDynamic'
+import createDynamicBuilder from './createDynamicBuilder'
 
-jest.mock('./createDynamicComponentBuilder')
+jest.mock('./createDynamicBuilder')
 
-describe('createDynamicComponent', () => {
+describe('createDynamic', () => {
   const mockHandler: DynamicComponentHandler = jest.fn()
 
-  it('should create component using createDynamicComponentBuilder when parameters provided in the schema', () => {
+  it('should create component using createDynamicBuilder when parameters provided in the schema', () => {
     const parameter: ComponentJsonSchema = { type: 'string' }
     const result: ComponentJsonSchema = { type: 'boolean' }
     const mockBuilder = {
@@ -23,13 +23,13 @@ describe('createDynamicComponent', () => {
     mockBuilder.out.mockReturnValue(mockBuilder)
 
     jest
-      .mocked(createDynamicComponentBuilder)
+      .mocked(createDynamicBuilder)
       .mockReturnValue(mockBuilder as unknown as ComponentBuilder<never, never>)
 
-    const component = createDynamicComponent(mockHandler, parameter, result)
+    const component = createDynamic(mockHandler, parameter, result)
 
-    // Ensure that createDynamicComponentBuilder is called with the correct arguments
-    expect(createDynamicComponentBuilder).toHaveBeenCalledWith(
+    // Ensure that createDynamicBuilder is called with the correct arguments
+    expect(createDynamicBuilder).toHaveBeenCalledWith(
       mockHandler,
       { type: 'string' },
       { type: 'boolean' },

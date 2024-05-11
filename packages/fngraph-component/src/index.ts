@@ -24,7 +24,7 @@ import InstanceBuilder, {
 } from './InstanceBuilder'
 import Prototype, { anyValue, createPredicateMatcher, Matcher, MatcherPredicate } from './Prototype'
 import Statement from './Statement'
-import createDynamicComponent from './createDynamicComponent'
+import createDynamic from './createDynamic'
 import deriveGeneratorInstances from './deriveGeneratorInstances'
 
 export {
@@ -38,7 +38,7 @@ export {
   ComponentSchemaPrimitive,
   ComponentSchemaProperties,
   createConstant,
-  createDynamicComponent,
+  createDynamic,
   createOneToMany,
   createOneToManyBatched,
   createOneToOne,

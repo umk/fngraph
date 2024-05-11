@@ -1,17 +1,16 @@
-import Component from './Component'
+import ComponentBuilder from './ComponentBuilder'
 import { ComponentJsonSchema } from './ComponentSchema'
 import DynamicComponentHandler from './DynamicComponentHandler'
-import createDynamicComponentBuilder from './createDynamicComponentBuilder'
+import createDynamicBuilder from './createDynamicBuilder'
 
-function createDynamicComponent(
+function createDynamic(
   handler: DynamicComponentHandler,
   parameter: ComponentJsonSchema = { type: 'object', properties: {} },
   result: ComponentJsonSchema = { type: 'boolean' },
-): Component<never, never> {
-  const builder = createDynamicComponentBuilder(handler, parameter, result)
+): ComponentBuilder<never, never> {
+  const builder = createDynamicBuilder(handler, parameter, result)
   if (!builder) throw new Error('Could not determine behavior of the handler function')
-  builder.in(parameter).out(result)
-  return builder.build()
+  return builder.in(parameter).out(result)
 }
 
-export default createDynamicComponent
+export default createDynamic

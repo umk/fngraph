@@ -18,7 +18,7 @@ import ComponentBuilder, {
 import { ComponentJsonSchema } from './ComponentSchema'
 import DynamicComponentHandler from './DynamicComponentHandler'
 
-function createDynamicComponentBuilder(
+function createDynamicBuilder(
   handler: DynamicComponentHandler,
   parameter: ComponentJsonSchema,
   result: ComponentJsonSchema,
@@ -49,4 +49,4 @@ function createDynamicComponentBuilder(
   return undefined
 }
 
-export default createDynamicComponentBuilder
+export default createDynamicBuilder
