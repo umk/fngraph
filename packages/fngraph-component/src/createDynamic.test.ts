@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 import Component from './Component'
 import ComponentBuilder from './ComponentBuilder'
 import { ComponentJsonSchema } from './ComponentSchema'
@@ -13,6 +15,7 @@ describe('createDynamic', () => {
   it('should create component using createDynamicBuilder when parameters provided in the schema', () => {
     const parameter: ComponentJsonSchema = { type: 'string' }
     const result: ComponentJsonSchema = { type: 'boolean' }
+    const isPure = faker.datatype.boolean()
     const mockBuilder = {
       in: jest.fn(),
       out: jest.fn(),
@@ -26,13 +29,14 @@ describe('createDynamic', () => {
       .mocked(createDynamicBuilder)
       .mockReturnValue(mockBuilder as unknown as ComponentBuilder<never, never>)
 
-    const component = createDynamic(mockHandler, parameter, result)
+    const component = createDynamic(mockHandler, parameter, result, isPure)
 
     // Ensure that createDynamicBuilder is called with the correct arguments
     expect(createDynamicBuilder).toHaveBeenCalledWith(
       mockHandler,
       { type: 'string' },
       { type: 'boolean' },
+      isPure,
     )
     // Ensure that the builder's methods are called correctly
     expect(mockBuilder.in).toHaveBeenCalledWith({ type: 'string' })
