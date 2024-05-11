@@ -1,6 +1,6 @@
 {
   "name": "@fngraph/component",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Component model primitives",
   "author": "Uladzislau Maslakou <umaslakou@gmail.com>",
   "homepage": "https://github.com/umk/fngraph#readme",
