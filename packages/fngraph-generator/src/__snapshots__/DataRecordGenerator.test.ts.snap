@@ -34,7 +34,3 @@ exports[`createDataRecordGenerator iterates through getter records 1`] = `
   },
 ]
 `;
-
-exports[`createDataRecordGenerator throws an error if nodes have recursive dependencies 1`] = `"The nodes have recursive dependency"`;
-
-exports[`createDataRecordGenerator throws an error nodes has a dependency on itself 1`] = `"The nodes have recursive dependency"`;

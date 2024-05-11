@@ -1,4 +1,5 @@
 import DataNode from './DataNode'
+import DataNodeSequence from './DataNodeSequence'
 import DataRecordGenerator, { createDataRecordGenerator } from './DataRecordGenerator'
 import Falsy from './Falsy'
 import GeneratorContext, {
@@ -27,6 +28,7 @@ export {
   createGetContextRecord,
   createMergeContexts,
   DataNode,
+  DataNodeSequence,
   DataRecordGenerator,
   DEFAULT_MAX_BATCH,
   DEFAULT_MAX_BUFFER,

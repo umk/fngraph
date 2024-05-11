@@ -2,7 +2,7 @@ import { Context, Declaration, DeclarationID } from '@fngraph/data'
 
 type MergeContexts = (records: Array<Context | undefined>) => Context | undefined
 
-export function createMergeContexts(declarations: Array<Declaration>): MergeContexts {
+export function createMergeContexts(declarations: ReadonlyArray<Declaration>): MergeContexts {
   const declarationsById = declarations.reduce(
     (prev, cur) => prev.set(cur.id, cur),
     new Map<DeclarationID, Declaration>(),

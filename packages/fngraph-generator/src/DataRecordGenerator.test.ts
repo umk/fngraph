@@ -1,6 +1,7 @@
 import { DataRecord, Declaration, DeclarationID } from '@fngraph/data'
 
 import DataNode from './DataNode'
+import DataNodeSequence from './DataNodeSequence'
 import { createDataRecordGenerator } from './DataRecordGenerator'
 import GeneratorValue from './GeneratorValue'
 import Getter from './Getter'
@@ -35,22 +36,13 @@ describe('createDataRecordGenerator', () => {
   const declarationB = 'declaration B' as DeclarationID
   const declarationC = 'declaration C' as DeclarationID
 
-  it('throws an error if nodes have recursive dependencies', () => {
-    const nodeA: DataNode = createDataNode({ incoming: [declarationA], outgoing: [declarationB] })
-    const nodeB: DataNode = createDataNode({ incoming: [declarationB], outgoing: [declarationA] })
-
-    expect(() => createDataRecordGenerator([nodeA, nodeB], [])).toThrowErrorMatchingSnapshot()
-  })
-  it('throws an error nodes has a dependency on itself', () => {
-    const nodeA: DataNode = createDataNode({ incoming: [declarationA], outgoing: [declarationA] })
-
-    expect(() => createDataRecordGenerator([nodeA], [])).toThrowErrorMatchingSnapshot()
-  })
   it("doesn't return anything if there are no nodes", async () => {
     const nodes: Array<DataNode> = []
     const declarations: Array<Declaration> = []
 
-    const generator = createDataRecordGenerator(nodes, declarations)
+    const sequence = DataNodeSequence.create(nodes)
+
+    const generator = createDataRecordGenerator(sequence, declarations)
     const records = generator()
 
     const { done } = await records.next()
@@ -74,7 +66,8 @@ describe('createDataRecordGenerator', () => {
         { [declarationC]: 300 },
       ]),
     })
-    const generator = createDataRecordGenerator([nodeA, nodeB], [])
+    const sequence = DataNodeSequence.create([nodeA, nodeB])
+    const generator = createDataRecordGenerator(sequence, [])
     const records: Array<DataRecord> = []
     for await (const record of generator()) records.push(record)
     expect(records).toMatchSnapshot()

@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DataNodeSequence throws an error if nodes have recursive dependencies 1`] = `"The nodes have recursive dependency"`;
+
+exports[`DataNodeSequence throws an error nodes has a dependency on itself 1`] = `"The nodes have recursive dependency"`;

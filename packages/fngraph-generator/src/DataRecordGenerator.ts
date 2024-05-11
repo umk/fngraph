@@ -1,24 +1,25 @@
 import { DataRecord, Declaration, DeclarationID } from '@fngraph/data'
 
 import DataNode from './DataNode'
+import DataNodeSequence from './DataNodeSequence'
 import GeneratorContext from './GeneratorContext'
 import GeneratorValue from './GeneratorValue'
 import { createGetContextRecord } from './GetContextRecord'
 import { createMergeContexts } from './MergeContexts'
-import PriorityQueue from './PriorityQueue'
 
 type DataRecordGenerator = () => AsyncGenerator<DataRecord>
 
 export function createDataRecordGenerator(
-  nodes: Array<DataNode>,
+  sequenceOrNodes: DataNodeSequence | Array<DataNode>,
   declarations: Array<Declaration>,
 ): DataRecordGenerator {
-  const incomings = getIncomingNodes(nodes)
-  const n = getOrderedNodes(nodes, incomings)
-  const parentRefs = getParentRefs(n, incomings)
-  const parentTrRefs = getParentTrRefs(n, parentRefs)
+  const sequence = Array.isArray(sequenceOrNodes)
+    ? DataNodeSequence.create(sequenceOrNodes)
+    : sequenceOrNodes
+  const parentRefs = getParentRefs(sequence.nodes, sequence.incomings)
+  const parentTrRefs = getParentTrRefs(sequence.nodes, parentRefs)
   const incomingDecls = Array.from(
-    nodes.reduce((prev, cur) => {
+    sequence.nodes.reduce((prev, cur) => {
       cur.incoming.forEach((d) => prev.add(d))
       return prev
     }, new Set<DeclarationID>()),
@@ -28,7 +29,7 @@ export function createDataRecordGenerator(
     iter: () => AsyncGenerator<GeneratorValue>
     isCached: boolean
   } {
-    if (index === n.length) {
+    if (index === sequence.nodes.length) {
       let iter: () => AsyncGenerator<GeneratorValue>
       if (index === 0) {
         iter = async function* (): AsyncGenerator<GeneratorValue> {
@@ -37,8 +38,8 @@ export function createDataRecordGenerator(
       } else {
         iter = async function* (): AsyncGenerator<GeneratorValue> {
           yield {
-            contexts: new Array(n.length).fill(undefined),
-            n: n.length,
+            contexts: new Array(sequence.nodes.length).fill(undefined),
+            n: sequence.nodes.length,
           }
         }
       }
@@ -52,11 +53,11 @@ export function createDataRecordGenerator(
       // ...upstream node is cached, or...
       upstreamIter.isCached ||
       // ...current node doesn't depend on anything, but is not the last node, or...
-      (currentTrRefs.length === 0 && index < n.length - 1) ||
+      (currentTrRefs.length === 0 && index < sequence.nodes.length - 1) ||
       // ...current node has a dependency, which is not an upstream node
       currentTrRefs[0] > index + 1
     const context = new GeneratorContext(index, currentTrRefs, isCached)
-    const { getter, getProperties, invert } = n[index]
+    const { getter, getProperties, invert } = sequence.nodes[index]
     const getRecord = createGetContextRecord(currentRefs, mergeContexts)
     const properties = getProperties(incomingDecls, invert)
     const iter = function (): AsyncGenerator<GeneratorValue> {
@@ -65,7 +66,7 @@ export function createDataRecordGenerator(
     }
     return { iter, isCached }
   }
-  const outputRefs = getOutputRefs(nodes, parentRefs)
+  const outputRefs = getOutputRefs(sequence.nodes, parentRefs)
   const getRecord = createGetContextRecord(outputRefs, mergeContexts)
   return async function* (): AsyncGenerator<DataRecord> {
     const current = createGeneratorAt(0)
@@ -74,49 +75,6 @@ export function createDataRecordGenerator(
       if (record) yield record
     }
   }
-}
-
-function getIncomingNodes(nodes: Array<DataNode>) {
-  return nodes.reduce((prev, cur) => {
-    for (const incoming of cur.incoming) {
-      let current = prev.get(incoming)
-      if (!current) prev.set(incoming, (current = []))
-      current.push(cur)
-    }
-    return prev
-  }, new Map<DeclarationID, Array<DataNode>>())
-}
-
-function getOrderedNodes(
-  nodes: Array<DataNode>,
-  incomings: Map<DeclarationID, Array<DataNode>>,
-): Array<DataNode> {
-  const indexes = new Map(nodes.map((n) => [n, 0]))
-  const pending = new PriorityQueue<DataNode>((a, b) => a.priority - b.priority)
-  nodes.forEach((n) => pending.enqueue(n))
-  for (;;) {
-    const current = pending.dequeue()
-    if (!current) break
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const i = indexes.get(current)!
-    if (i === nodes.length) {
-      throw new Error('The nodes have recursive dependency')
-    }
-    for (const outgoing of current.outgoing) {
-      const n = incomings.get(outgoing)
-      if (n) {
-        for (const node of n) {
-          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-          if (i >= indexes.get(node)!) {
-            indexes.set(node, i + 1)
-            pending.enqueue(node)
-          }
-        }
-      }
-    }
-  }
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return nodes.sort((a, b) => indexes.get(b)! - indexes.get(a)!)
 }
 
 function getParentRefs(
