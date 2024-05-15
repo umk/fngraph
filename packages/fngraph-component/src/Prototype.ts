@@ -63,12 +63,12 @@ export function createGetProperties(prototype: Prototype<unknown>): PropertiesGe
   const propertiesBase: Array<PropertyRef> = []
   const propertiesByDecl = new Map<DeclarationID, PropertyRef>()
   function getProperties(prototype: Prototype<unknown>, ref: Array<string>) {
-    if (prototype !== null && typeof prototype === 'object') {
+    if (prototype instanceof Declaration) {
+      propertiesByDecl.set(prototype.id, ref as PropertyRef)
+    } else if (prototype !== null && typeof prototype === 'object') {
       for (const [property, value] of Object.entries(prototype)) {
         getProperties(value, [...ref, property])
       }
-    } else if (prototype instanceof Declaration) {
-      propertiesByDecl.set(prototype.id, ref as PropertyRef)
     } else {
       propertiesBase.push(ref as PropertyRef)
     }
