@@ -1,5 +1,6 @@
-import { DataRecord, Declaration, DeclarationID } from '@fngraph/data'
+import { Declaration, DeclarationID } from '@fngraph/data'
 
+import AggregateRecord from './AggregateRecord'
 import DataNode from './DataNode'
 import DataNodeSequence from './DataNodeSequence'
 import GeneratorContext from './GeneratorContext'
@@ -7,12 +8,12 @@ import GeneratorValue from './GeneratorValue'
 import { createGetContextRecord } from './GetContextRecord'
 import { createMergeContexts } from './MergeContexts'
 
-type DataRecordGenerator = () => AsyncGenerator<DataRecord>
+type RecordGenerator = () => AsyncGenerator<AggregateRecord>
 
-export function createDataRecordGenerator(
+export function createRecordGenerator(
   sequenceOrNodes: DataNodeSequence | Array<DataNode>,
   declarations: Array<Declaration>,
-): DataRecordGenerator {
+): RecordGenerator {
   const sequence = Array.isArray(sequenceOrNodes)
     ? DataNodeSequence.create(sequenceOrNodes)
     : sequenceOrNodes
@@ -68,7 +69,7 @@ export function createDataRecordGenerator(
   }
   const outputRefs = getOutputRefs(sequence.nodes, parentRefs)
   const getRecord = createGetContextRecord(outputRefs, mergeContexts)
-  return async function* (): AsyncGenerator<DataRecord> {
+  return async function* (): AsyncGenerator<AggregateRecord> {
     const current = createGeneratorAt(0)
     for await (const value of current.iter()) {
       const record = getRecord(value.contexts)
@@ -123,4 +124,4 @@ function getOutputRefs(nodes: Array<DataNode>, parentRefs: Array<Array<number>>)
   }, [] as Array<number>)
 }
 
-export default DataRecordGenerator
+export default RecordGenerator

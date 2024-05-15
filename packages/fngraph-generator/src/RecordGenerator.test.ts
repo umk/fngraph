@@ -2,9 +2,9 @@ import { DataRecord, Declaration, DeclarationID } from '@fngraph/data'
 
 import DataNode from './DataNode'
 import DataNodeSequence from './DataNodeSequence'
-import { createDataRecordGenerator } from './DataRecordGenerator'
 import GeneratorValue from './GeneratorValue'
 import Getter from './Getter'
+import { createRecordGenerator } from './RecordGenerator'
 import { createDataNode } from './__fixtures__'
 
 function createGetter(values: Array<DataRecord>): Getter {
@@ -31,7 +31,7 @@ function createGetter(values: Array<DataRecord>): Getter {
   }
 }
 
-describe('createDataRecordGenerator', () => {
+describe('createRecordGenerator', () => {
   const declarationA = 'declaration A' as DeclarationID
   const declarationB = 'declaration B' as DeclarationID
   const declarationC = 'declaration C' as DeclarationID
@@ -42,7 +42,7 @@ describe('createDataRecordGenerator', () => {
 
     const sequence = DataNodeSequence.create(nodes)
 
-    const generator = createDataRecordGenerator(sequence, declarations)
+    const generator = createRecordGenerator(sequence, declarations)
     const records = generator()
 
     const { done } = await records.next()
@@ -67,7 +67,7 @@ describe('createDataRecordGenerator', () => {
       ]),
     })
     const sequence = DataNodeSequence.create([nodeA, nodeB])
-    const generator = createDataRecordGenerator(sequence, [])
+    const generator = createRecordGenerator(sequence, [])
     const records: Array<DataRecord> = []
     for await (const record of generator()) records.push(record)
     expect(records).toMatchSnapshot()

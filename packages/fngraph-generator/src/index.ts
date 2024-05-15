@@ -1,6 +1,6 @@
+import AggregateRecord from './AggregateRecord'
 import DataNode from './DataNode'
 import DataNodeSequence from './DataNodeSequence'
-import DataRecordGenerator, { createDataRecordGenerator } from './DataRecordGenerator'
 import Falsy from './Falsy'
 import GeneratorContext, {
   CONTEXT_GROUP_INVERSION,
@@ -16,20 +16,21 @@ import MergeContexts, { createMergeContexts } from './MergeContexts'
 import OutgoingMapper, { recordAsContext } from './OutgoingMapper'
 import PropertiesGetter, { combinePropertiesGetters } from './PropertiesGetter'
 import PropertyRef, { getUniquePropertyRefs } from './PropertyRef'
+import RecordGenerator, { createRecordGenerator } from './RecordGenerator'
 
 export {
+  AggregateRecord,
   combinePropertiesGetters,
   CONTEXT_GROUP_INVERSION,
   ContextArrayGroup,
   contextAsRecord,
   ContextGroup,
   ContextGroupInversion,
-  createDataRecordGenerator,
   createGetContextRecord,
   createMergeContexts,
+  createRecordGenerator,
   DataNode,
   DataNodeSequence,
-  DataRecordGenerator,
   DEFAULT_MAX_BATCH,
   DEFAULT_MAX_BUFFER,
   Falsy,
@@ -46,4 +47,5 @@ export {
   PropertiesGetter,
   PropertyRef,
   recordAsContext,
+  RecordGenerator,
 }

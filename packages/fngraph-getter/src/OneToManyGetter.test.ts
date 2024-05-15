@@ -1,5 +1,5 @@
 import { DataRecord, DeclarationID } from '@fngraph/data'
-import { contextAsRecord, createDataRecordGenerator, recordAsContext } from '@fngraph/generator'
+import { contextAsRecord, createRecordGenerator, recordAsContext } from '@fngraph/generator'
 import { DataNodeSequence } from '@fngraph/generator'
 
 import { createConstant } from './ConstantValues'
@@ -32,7 +32,7 @@ describe('createOneToMany', () => {
       })(contextAsRecord, recordAsContext),
     })
     const sequence = DataNodeSequence.create([nodeA, nodeB])
-    const generator = createDataRecordGenerator(sequence, [])
+    const generator = createRecordGenerator(sequence, [])
     const records: Array<DataRecord> = []
     for await (const record of generator()) records.push(record)
     expect(records).toMatchSnapshot()
@@ -75,7 +75,7 @@ describe('createOneToMany', () => {
       ),
     })
     const sequence = DataNodeSequence.create([nodeA, nodeB, nodeC])
-    const generator = createDataRecordGenerator(sequence, [])
+    const generator = createRecordGenerator(sequence, [])
     const records: Array<DataRecord> = []
     for await (const record of generator()) records.push(record)
     expect(records).toMatchSnapshot()
