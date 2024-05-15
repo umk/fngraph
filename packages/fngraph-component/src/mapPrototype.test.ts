@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { Declaration, DeclarationID } from '@fngraph/data'
+import { Declaration } from '@fngraph/data'
 
 import Prototype from './Prototype'
 import mapPrototype from './mapPrototype'
@@ -8,7 +8,7 @@ describe('mapPrototype', () => {
   it('matches top level value', () => {
     const value = { property: faker.lorem.words(3) }
     const prototype: Prototype<typeof value> = {
-      property: new Declaration('declaration' as DeclarationID),
+      property: new Declaration('declaration'),
     }
     const matches = mapPrototype<typeof value>(prototype)(value)
     expect(Array.from(matches)).toMatchSnapshot()
@@ -20,7 +20,7 @@ describe('mapPrototype', () => {
       a: string
       b: number
     }> = {
-      a: new Declaration('declaration' as DeclarationID),
+      a: new Declaration('declaration'),
       b: 200,
     }
     const matches = [valueA, valueB].flatMap((s) => {
@@ -34,7 +34,7 @@ describe('mapPrototype', () => {
       property: [faker.lorem.words(3), faker.lorem.words(3), faker.lorem.words(3)],
     }
     const prototype: Prototype<typeof value> = {
-      property: new Declaration('declaration' as DeclarationID),
+      property: new Declaration('declaration'),
     }
     const matches = mapPrototype<typeof value>(prototype)(value)
     expect(Array.from(matches)).toMatchSnapshot()
@@ -60,13 +60,13 @@ describe('mapPrototype', () => {
     }
     const prototype: Prototype<typeof value> = {
       propertyA: {
-        propertyA1: new Declaration('declarationA1' as DeclarationID),
+        propertyA1: new Declaration('declarationA1'),
         propertyA3: 'propertyA3',
       },
       propertyB: {
         propertyB1: 'propertyB1',
         propertyB2: {
-          propertyB22: new Declaration('declarationB22' as DeclarationID),
+          propertyB22: new Declaration('declarationB22'),
         },
       },
       propertyC: {

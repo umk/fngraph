@@ -4,9 +4,9 @@ import { Context, DataValue, Declaration, DeclarationID } from '@fngraph/data'
 import mapStatement from './mapStatement'
 
 describe('mapStatement', () => {
-  const declarationA = new Declaration('declaration A' as DeclarationID)
-  const declarationB = new Declaration('declaration B' as DeclarationID)
-  const declarationC = new Declaration('declaration C' as DeclarationID)
+  const declarationA = new Declaration('declaration A')
+  const declarationB = new Declaration('declaration B')
+  const declarationC = new Declaration('declaration C')
 
   it('should return the value of a declaration statement', () => {
     const value = faker.number.int()
