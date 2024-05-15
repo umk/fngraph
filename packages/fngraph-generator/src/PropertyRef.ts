@@ -2,7 +2,7 @@ type PropertyRef = [string, ...Array<string>]
 
 const UNIQUE_REF_MARKER = Symbol('unique ref marker')
 
-export function getUniqueRefs(refs: Array<PropertyRef>) {
+export function getUniquePropertyRefs(refs: Array<PropertyRef>) {
   const result: Array<PropertyRef> = []
   const index = {} as Record<string | symbol, unknown>
   for (const ref of refs) {

@@ -15,7 +15,7 @@ import IncomingMapper, { contextAsRecord } from './IncomingMapper'
 import MergeContexts, { createMergeContexts } from './MergeContexts'
 import OutgoingMapper, { recordAsContext } from './OutgoingMapper'
 import PropertiesGetter, { combinePropertiesGetters } from './PropertiesGetter'
-import PropertyRef from './PropertyRef'
+import PropertyRef, { getUniquePropertyRefs } from './PropertyRef'
 
 export {
   combinePropertiesGetters,
@@ -39,6 +39,7 @@ export {
   GetContextRecord,
   Getter,
   GetterFactory,
+  getUniquePropertyRefs,
   IncomingMapper,
   MergeContexts,
   OutgoingMapper,
