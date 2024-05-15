@@ -16,8 +16,8 @@ export type DeclarationOptions = {
 class Declaration {
   private readonly _id: DeclarationID
   private readonly _conversion?: Conversion
-  constructor(id: DeclarationID, options?: DeclarationOptions) {
-    this._id = id
+  constructor(id: string, options?: DeclarationOptions) {
+    this._id = id as DeclarationID
     this._conversion = options?.conversion
   }
   /**
