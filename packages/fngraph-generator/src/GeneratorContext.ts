@@ -5,7 +5,9 @@ import GeneratorValue from './GeneratorValue'
 
 export type ContextGroup<R extends DataRecord = DataRecord> = R | ContextGroupInversion | Falsy
 
-export type ContextArrayGroup<R extends DataRecord = DataRecord> = Array<R | ContextGroupInversion>
+export type ContextArrayGroup<R extends DataRecord = DataRecord> =
+  | Array<R | ContextGroupInversion>
+  | AsyncGenerator<R | ContextGroupInversion>
 
 export type ContextGroupInversion = Record<string, never>
 

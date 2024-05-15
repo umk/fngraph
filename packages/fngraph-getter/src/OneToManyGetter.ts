@@ -10,6 +10,7 @@ import {
 } from '@fngraph/generator'
 
 import { createIteration } from './IterationFunction'
+import generateDerived from './generateDerived'
 
 type OneToManyGetter<P extends DataRecord, R extends DataRecord> = (
   record: P,
@@ -43,22 +44,21 @@ export function createOneToMany<P extends DataRecord, R extends DataRecord>(
           const base = getRecord(current.contexts)
           if (base) {
             const derivations = source(incoming(base), properties)
-            let group: ContextArrayGroup<R> = []
+            let group: ContextArrayGroup<R> | undefined = undefined
             if (context.isCached) {
               group = []
               context.groups.push(group)
             }
             if (!invert) {
-              for await (const derived of derivations) {
-                if (derived) group.push(derived)
-              }
+              const generator = generateDerived(derivations, group)
+              yield { base, group: generator }
             } else {
               for await (const derived of derivations) {
                 if (derived) return
               }
-              group.push(CONTEXT_GROUP_INVERSION)
+              group?.push(CONTEXT_GROUP_INVERSION)
+              yield { base, group }
             }
-            yield { base, group }
           } else {
             context.groups.push(undefined)
           }
@@ -69,7 +69,7 @@ export function createOneToMany<P extends DataRecord, R extends DataRecord>(
         context.advanceToValueGroup(current)
         const records = getSourceRecords(current)
         for await (const record of records) {
-          yield* iteration(current, record.base, record.group as Array<R>)
+          yield* iteration(current, record.base, record.group as Array<R> | AsyncGenerator<R>)
         }
         context.groupIndex++
       }

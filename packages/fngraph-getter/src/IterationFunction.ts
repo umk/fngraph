@@ -4,8 +4,8 @@ import { GeneratorContext, GeneratorValue, OutgoingMapper } from '@fngraph/gener
 type IterationFunction<D extends DataRecord> = (
   value: GeneratorValue,
   base: Context,
-  derivations: D | Array<D>,
-) => Generator<GeneratorValue>
+  derivations: D | Array<D> | AsyncGenerator<D>,
+) => AsyncGenerator<GeneratorValue>
 
 export type IterationFactory<D extends DataRecord> = (
   context: GeneratorContext,
@@ -17,10 +17,17 @@ export function createIteration<D extends DataRecord>(
 ): IterationFactory<D> {
   return function (context: GeneratorContext, invert: boolean): IterationFunction<D> {
     if (!invert) {
-      return function* (value: GeneratorValue, base: Context, derivations: D | Array<D>) {
-        const d = Array.isArray(derivations) ? derivations : [derivations]
+      return async function* (
+        value: GeneratorValue,
+        base: Context,
+        derivations: D | Array<D> | AsyncGenerator<D>,
+      ) {
+        const d =
+          Array.isArray(derivations) || Symbol.asyncIterator in derivations
+            ? derivations
+            : [derivations]
         let n = value.n
-        for (const derived of d) {
+        for await (const derived of d) {
           for (const r of outgoing(derived)) {
             value.contexts[context.nodeIndex] = { ...base, ...r }
             yield { contexts: value.contexts, n }
@@ -29,7 +36,7 @@ export function createIteration<D extends DataRecord>(
         }
       }
     } else {
-      return function* (value: GeneratorValue, base: Context) {
+      return async function* (value: GeneratorValue, base: Context) {
         // The derived value is assumed to be an empty object
         value.contexts[context.nodeIndex] = base
         yield value
