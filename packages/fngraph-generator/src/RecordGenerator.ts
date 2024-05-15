@@ -20,10 +20,13 @@ export function createRecordGenerator(
   const parentRefs = getParentRefs(sequence.nodes, sequence.incomings)
   const parentTrRefs = getParentTrRefs(sequence.nodes, parentRefs)
   const incomingDecls = Array.from(
-    sequence.nodes.reduce((prev, cur) => {
-      cur.incoming.forEach((d) => prev.add(d))
-      return prev
-    }, new Set<DeclarationID>()),
+    sequence.nodes.reduce(
+      (prev, cur) => {
+        cur.incoming.forEach((d) => prev.add(d))
+        return prev
+      },
+      new Set<DeclarationID>(declarations.map((d) => d.id)),
+    ),
   )
   const mergeContexts = createMergeContexts(declarations)
   function createGeneratorAt(index: number): {

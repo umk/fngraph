@@ -1,4 +1,4 @@
-import { DeclarationID } from '@fngraph/data'
+import { Declaration, DeclarationID } from '@fngraph/data'
 
 import Instance from './Instance'
 
@@ -11,7 +11,8 @@ import Instance from './Instance'
  * A function, which returns a collection of combinations of instances,
  * which participate in resolution of declaration value.
  */
-function createGetSources(instances: Array<Instance>, inputs: Array<DeclarationID>) {
+function createGetSources(instances: Array<Instance>, inputs: Array<Declaration | DeclarationID>) {
+  const inputIds = inputs.map((i) => (i instanceof Declaration ? i.id : i))
   const pureInstancesByOuts = instances.reduce((prev, cur, n) => {
     if (!cur.invert && cur.isPure) {
       for (const declarationId of cur.outgoing) {
@@ -42,8 +43,11 @@ function createGetSources(instances: Array<Instance>, inputs: Array<DeclarationI
       markers[n] = false
     }
   }
-  function getDeclarationSources(declarationId: DeclarationID): Array<Array<number>> {
-    if (inputs.includes(declarationId)) return [[]]
+  function getDeclarationSources(
+    declarationOrId: Declaration | DeclarationID,
+  ): Array<Array<number>> {
+    const declarationId = typeof declarationOrId === 'object' ? declarationOrId.id : declarationOrId
+    if (inputIds.includes(declarationId)) return [[]]
     let result = results.get(declarationId)
     if (!result) {
       result = []
@@ -119,15 +123,15 @@ function getCombination(
 function deriveGeneratorInstances(
   instances: Array<Instance>,
   mandatory: Array<Instance>,
-  inputs: Array<DeclarationID>,
-  outputs: Array<DeclarationID>,
+  inputs: Array<DeclarationID | Declaration>,
+  outputs: Array<DeclarationID | Declaration>,
 ): Array<Instance> | undefined {
   const { getInstanceSources, getDeclarationSources } = createGetSources(instances, inputs)
   // A collection of output declarations which are still to
   // decide, which instance will provide them.
-  const unresolvedOut = outputs.filter(
-    (d) => !mandatory.some((instance) => !instance.invert && instance.outgoing.includes(d)),
-  )
+  const unresolvedOut = outputs
+    .map((d) => (d instanceof Declaration ? d.id : d))
+    .filter((d) => !mandatory.some((instance) => !instance.invert && instance.outgoing.includes(d)))
   const mandatoryCombs = mandatory.map(getInstanceSources)
   const unresolvedCombs = unresolvedOut.map(getDeclarationSources)
   const combinations = [...mandatoryCombs, ...unresolvedCombs]

@@ -1,5 +1,7 @@
 import ConstantValues, { createConstant } from './ConstantValues'
+import GetterBatchedPrototype, { createGetterBatchedPrototype } from './GetterBatchedPrototype'
 import GetterFunction, { PredicateGetterFunction } from './GetterFunction'
+import GetterPrototype, { createGetterPrototype } from './GetterPrototype'
 import OneToManyGetter, { createOneToMany } from './OneToManyGetter'
 import OneToManyGetterBatched, { createOneToManyBatched } from './OneToManyGetterBatched'
 import OneToOneGetter, { createOneToOne } from './OneToOneGetter'
@@ -10,13 +12,17 @@ import PredicateGetterBatched, { createPredicateBatched } from './PredicateGette
 export {
   ConstantValues,
   createConstant,
+  createGetterBatchedPrototype,
+  createGetterPrototype,
   createOneToMany,
   createOneToManyBatched,
   createOneToOne,
   createOneToOneBatched,
   createPredicate,
   createPredicateBatched,
+  GetterBatchedPrototype,
   GetterFunction,
+  GetterPrototype,
   OneToManyGetter,
   OneToManyGetterBatched,
   OneToOneGetter,

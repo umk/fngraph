@@ -9,6 +9,7 @@ import Prototype from './Prototype'
  * @param prototype A prototype that partially corresponds to the structure of matching value
  * @param value A value to match against the prototype
  * @param context The context object, which maps declarations to resolved values
+ * @param partial Indicates whether partial match is allowed
  * @returns
  * A collection of contexts, where each context contains bindings
  * to declarations for each match in the value.
@@ -17,6 +18,7 @@ function* getPrototypeMatches(
   prototype: Prototype,
   value: DataValue,
   context: Context = {} as Context,
+  partial = false,
 ): Generator<Context> {
   if (Array.isArray(value)) {
     // Prototypes may be defined against array value items,
@@ -24,7 +26,7 @@ function* getPrototypeMatches(
     // a prototype comparison against each item of the array
     // value and returns records for matches.
     for (const item of value) {
-      yield* getPrototypeMatches(prototype, item, { ...context })
+      yield* getPrototypeMatches(prototype, item, { ...context }, partial)
     }
   } else {
     if (prototype instanceof Declaration) {
@@ -48,13 +50,17 @@ function* getPrototypeMatches(
         yield* Object.entries(prototype).reduce(function* (prev, [key, prototype]) {
           if (key in value) {
             for (const context of prev) {
-              yield* getPrototypeMatches(prototype, value[key], context)
+              yield* getPrototypeMatches(prototype, value[key], context, partial)
             }
+          } else if (partial) {
+            yield* prev
           }
         }, getThisContext(context))
+      } else if (partial) {
+        yield context
       }
     } else if (prototype === value) {
-      yield* getThisContext(context)
+      yield context
     }
   }
 }
@@ -70,7 +76,8 @@ function* getThisContext(context: Context): Generator<Context> {
 
 function mapPrototype<R extends DataRecord>(prototype: Prototype<R>): OutgoingMapper<R> {
   return function (record: R): Generator<Context> {
-    return getPrototypeMatches(prototype, record)
+    const context = {} as Context
+    return getPrototypeMatches(prototype, record, context, true)
   }
 }
 
