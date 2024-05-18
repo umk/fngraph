@@ -2,7 +2,7 @@ import { DataRecord } from '@fngraph/data'
 import { GetterFactory } from '@fngraph/generator'
 
 import ComponentSchema from './ComponentSchema'
-import InstanceBuilder, { InstancePriority } from './InstanceBuilder'
+import { InstancePriority } from './InstanceBuilder'
 
 /**
  * A component represents a building block of a data model. The
@@ -67,12 +67,6 @@ class Component<P extends DataRecord, R extends DataRecord> {
    */
   get outgoing() {
     return this._outgoing
-  }
-  /**
-   * Creates a new builder of an instance based on current component.
-   */
-  instance(): InstanceBuilder<P, R> {
-    return new InstanceBuilder(this)
   }
 }
 

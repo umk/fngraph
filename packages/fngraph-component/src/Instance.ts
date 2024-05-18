@@ -1,9 +1,8 @@
-import { DataRecord, DeclarationID } from '@fngraph/data'
+import { DeclarationID } from '@fngraph/data'
 import { Getter } from '@fngraph/generator'
 import { PropertiesGetter } from '@fngraph/generator'
 
 import Component from './Component'
-import InstanceBuilder from './InstanceBuilder'
 
 type Instance = {
   /**
@@ -43,22 +42,6 @@ type Instance = {
    * collected from the getter output based on other nodes inputs.
    */
   getProperties: PropertiesGetter
-}
-
-export type InstanceConfig<P extends DataRecord, R extends DataRecord> = (
-  builder: InstanceBuilder<P, R>,
-) => void
-
-export type InstanceConfigOf<C> =
-  C extends Component<infer P, infer R> ? InstanceConfig<P, R> : never
-
-export function instance<P extends DataRecord, R extends DataRecord>(
-  component: Component<P, R>,
-  ...configs: Array<InstanceConfig<P, R>>
-): Instance {
-  const builder = component.instance()
-  configs.forEach((c) => c(builder))
-  return builder.build()
 }
 
 export default Instance
