@@ -1,6 +1,6 @@
 {
   "name": "@fngraph/getter",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Getter initialization functions",
   "author": "Uladzislau Maslakou <umaslakou@gmail.com>",
   "homepage": "https://github.com/umk/fngraph#readme",
@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@fngraph/data": "^0.1.8",
-    "@fngraph/generator": "^0.1.8"
+    "@fngraph/generator": "^0.1.9"
   },
   "publishConfig": {
     "access": "public"

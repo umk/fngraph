@@ -1,6 +1,6 @@
 {
   "name": "@fngraph/fngraph",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Primitives for composing and evaluating functions based on their inputs and outputs",
   "author": "Uladzislau Maslakou <umaslakou@gmail.com>",
   "homepage": "https://github.com/umk/fngraph#readme",
@@ -28,8 +28,8 @@
   },
   "dependencies": {
     "@fngraph/data": "^0.1.8",
-    "@fngraph/generator": "^0.1.8",
-    "@fngraph/getter": "^0.1.8"
+    "@fngraph/generator": "^0.1.9",
+    "@fngraph/getter": "^0.1.9"
   },
   "publishConfig": {
     "access": "public"
