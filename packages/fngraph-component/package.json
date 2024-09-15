@@ -1,6 +1,6 @@
 {
   "name": "@fngraph/component",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Component model primitives",
   "author": "Uladzislau Maslakou <umaslakou@gmail.com>",
   "homepage": "https://github.com/umk/fngraph#readme",
@@ -30,10 +30,15 @@
     }
   },
   "dependencies": {
-    "@fngraph/generator": "^0.1.9",
-    "@fngraph/getter": "^0.1.9"
+    "@fngraph/generator": "^0.1.10",
+    "@fngraph/getter": "^0.1.10"
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
 }

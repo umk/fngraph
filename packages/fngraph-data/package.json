@@ -1,6 +1,6 @@
 {
   "name": "@fngraph/data",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Data model primitives",
   "author": "Uladzislau Maslakou <umaslakou@gmail.com>",
   "homepage": "https://github.com/umk/fngraph#readme",
@@ -31,5 +31,10 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "../../LICENSE"
+  ]
 }
