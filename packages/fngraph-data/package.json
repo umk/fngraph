@@ -1,6 +1,6 @@
 {
   "name": "@fngraph/data",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "Data model primitives",
   "author": "Uladzislau Maslakou <umaslakou@gmail.com>",
   "homepage": "https://github.com/umk/fngraph#readme",
