@@ -10,10 +10,15 @@ import ComponentBuilder, {
 } from './ComponentBuilder'
 import ComponentSchema, {
   ComponentJsonSchema,
+  ComponentSchemaAny,
   ComponentSchemaArray,
+  ComponentSchemaConcrete,
+  ComponentSchemaDefinitions,
   ComponentSchemaObject,
   ComponentSchemaPrimitive,
   ComponentSchemaProperties,
+  ComponentSchemaRef,
+  ComponentSchemaType,
 } from './ComponentSchema'
 import DynamicComponentHandler from './DynamicComponentHandler'
 import Instance from './Instance'
@@ -33,10 +38,15 @@ export {
   ComponentBuilder,
   ComponentJsonSchema,
   ComponentSchema,
+  ComponentSchemaAny,
   ComponentSchemaArray,
+  ComponentSchemaConcrete,
+  ComponentSchemaDefinitions,
   ComponentSchemaObject,
   ComponentSchemaPrimitive,
   ComponentSchemaProperties,
+  ComponentSchemaRef,
+  ComponentSchemaType,
   createConstant,
   createDynamic,
   createOneToMany,

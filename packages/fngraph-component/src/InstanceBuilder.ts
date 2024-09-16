@@ -10,7 +10,7 @@ import {
 } from '@fngraph/generator'
 
 import Component from './Component'
-import ComponentSchema from './ComponentSchema'
+import ComponentSchema, { resolveJsonSchemaRef } from './ComponentSchema'
 import Instance from './Instance'
 import Prototype, { createGetProperties } from './Prototype'
 import Statement from './Statement'
@@ -20,8 +20,11 @@ import mapStatement from './mapStatement'
 
 function getSchemaProperties(schema: ComponentSchema): Array<string> {
   if (Array.isArray(schema)) return schema
-  if (schema.type === 'array') return getSchemaProperties(schema.items)
-  if (schema.type === 'object') return Object.getOwnPropertyNames(schema.properties)
+  schema = resolveJsonSchemaRef(schema)
+  if ('type' in schema) {
+    if (schema.type === 'array') return getSchemaProperties(schema.items)
+    if (schema.type === 'object') return Object.getOwnPropertyNames(schema.properties ?? {})
+  }
   return []
 }
 
