@@ -79,30 +79,34 @@ export enum InstancePriority {
 
 class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
   private readonly _component: Component<P, R>
-  private _priorityDef: InstancePriority
-  private _priority: InstancePriority | number | undefined
-  private _incoming: InstanceIncoming<P> | undefined
   private readonly _outgoing: Array<InstanceOutgoing<R>> = []
+
+  private _incoming: InstanceIncoming<P> | undefined
+  private _priority: InstancePriority | number | undefined
   private _invert = false
+
   constructor(component: Component<P, R>) {
-    if (!component) throw new Error('component is not defined')
+    if (!component) throw new Error('Component is not defined')
     this._component = component
-    this._priorityDef = component.priority
   }
+
   in(incoming: InstanceIncoming<P>): this {
     this._incoming = incoming
     return this
   }
+
   inStatement(statement: Statement<P>): this {
     return this.in({
       mapper: mapStatement(statement),
       declarations: getDeclarationsIds(statement),
     })
   }
+
   out(outgoing: InstanceOutgoing<R>): this {
     this._outgoing.push(outgoing)
     return this
   }
+
   outPrototype(prototype: Prototype<R>): this {
     return this.out({
       mapper: mapPrototype(prototype),
@@ -110,32 +114,25 @@ class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
       getProperties: createGetProperties(prototype),
     })
   }
+
   invert(invert = true): this {
     this._invert = invert
     return this
   }
+
   priority(priority: InstancePriority | number): this {
     this._priority = priority
     return this
   }
+
   build(): Instance {
-    const incoming =
-      this._incoming ||
-      ({
-        mapper: contextAsRecord,
-        declarations: getSchemaProperties(this._component.incoming),
-      } as InstanceIncoming<P>)
-    const outgoing = this.getOutgoing()
-    return {
-      component: this._component as unknown as Component<never, never>,
-      getter: this._component.factory(incoming.mapper, outgoing.mapper),
-      priority: this._priority ?? (this._invert ? InstancePriority.INVERSION : this._priorityDef),
-      incoming: incoming.declarations,
-      outgoing: outgoing.declarations,
-      invert: this._invert,
-      isPure: this._component.isPure,
-      getProperties: outgoing.getProperties,
-    }
+    return new Instance(
+      this._component as unknown as Component<never, never>,
+      this._priority,
+      this._invert,
+      this.getIncoming() as InstanceIncoming<never>,
+      this.getOutgoing() as InstanceOutgoing<never>,
+    )
   }
 
   private *enumerateContexts(record: R, n: number): Generator<Context> {
@@ -158,6 +155,17 @@ class InstanceBuilder<P extends DataRecord, R extends DataRecord> {
       }
     }
   }
+
+  private getIncoming(): InstanceIncoming<P> {
+    return (
+      this._incoming ||
+      ({
+        mapper: contextAsRecord,
+        declarations: getSchemaProperties(this._component.incoming),
+      } as InstanceIncoming<P>)
+    )
+  }
+
   private getOutgoing(): InstanceOutgoing<R> {
     if (this._outgoing.length === 0) {
       const declarations = ((this._component.outgoing &&
